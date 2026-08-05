@@ -1,3 +1,9 @@
 [submodule "trepogeno/nextstrain/mykrobe"]
 	path = trepogeno/nextstrain/mykrobe
 	url = https://github.com/Mykrobe-tools/mykrobe.git
+[submodule "assorted-sub-workflows"]
+	path = assorted-sub-workflows
+	url = git@gitlab.internal.sanger.ac.uk:sanger-pathogens/pipelines/assorted-sub-workflows.git
+[submodule "nextflowtool"]
+	path = nextflowtool
+	url = git@gitlab.internal.sanger.ac.uk:sanger-pathogens/pipelines/nextflowtool.git
