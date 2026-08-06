@@ -14,6 +14,7 @@ else:
 
 #Custom functions, these import functions from other script to keep things modular  
 from nextstrain.post_process_json.tabulate_json import run_tabulate_json
+from nextstrain.post_process_json.summarise_trepogeno_lineage_calls import run_summarise_lineage_calls
 from nextstrain.create_probes.create_probes import create_probes
 from nextstrain.lineage_calling.run_mykrobe_lineage_calling import run_mykrobe_lineage_call
 
@@ -109,8 +110,9 @@ def create_probes_from_type_scheme(type_scheme,genomic_reference,probe_and_linea
 def run_lineage_call(probe_directory,sequence_manifest,json_directory,probe_lineage_name,kmer_size):
     run_mykrobe_lineage_call(probe_directory,sequence_manifest,json_directory,probe_lineage_name,kmer_size)
 
-def concatenate_and_read_json(json_directory):
+def concatenate_and_read_json(json_directory, type_scheme=None):
     run_tabulate_json(json_directory)
+    run_summarise_lineage_calls(json_directory, scheme_tsv=type_scheme)
 
 def main():
     args = parse_arguments()
@@ -122,7 +124,7 @@ def main():
         run_lineage_call(args.probe_and_lineage_dir,args.seq_manifest,args.json_directory,args.probe_lineage_name,args.kmer_size)
 
     if args.tabulate_jsons:
-        concatenate_and_read_json(args.json_directory)
+        concatenate_and_read_json(args.json_directory, args.type_scheme)
 
 if __name__ == "__main__":
     main()

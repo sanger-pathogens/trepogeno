@@ -3,8 +3,8 @@ This directory contains the scripts that are used for making calls to mykrobe an
 ### Argument Example
 trepogeno \
 --json_directory files/json_outputs \
---type_scheme files/Tpallidum.SNP.table_hierarchies_2025-05-14.tsv \
---genomic_reference files/reference/nc_021508.fasta \
+--type_scheme files/2026-05-12__07_masked_snpsAF09DP5_n10.diagnostic_SNPs_Mykrobe_2026-08-04_b.tsv \
+--genomic_reference files/reference/Treponema_pallidum_subsp_pallidum_SS14_v2.fa \
 --probe_and_lineage_dir files/probes \
 --make_probes \
 --probe_lineage_name custom_typing 

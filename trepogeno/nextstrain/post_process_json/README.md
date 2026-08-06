@@ -52,3 +52,16 @@ And an accompanying snps_called.html with built in filtering for easier manual i
 
 ![Trepogeno_htmlfile](images_examples/html_table.png)
 
+### summarise_trepogeno_lineage_calls.py
+Alongside snps_called.csv/html, `--tabulate_jsons` also runs `summarise_trepogeno_lineage_calls.py`, which writes `lineage_call_summary.csv` to the same `--json_directory`.
+This performs a more rigorous primary-call selection than the calls-made/possible-calls table above: mykrobe's own path score (good_nodes/tree_depth) is a best-single-marker metric, so a spurious path built on a few stray markers can tie a genuine call.
+This script instead computes `path_concordance`, the mean fraction of concordant markers across all nodes of a path, and uses that (with tree_depth as tiebreaker) to pick the primary lineage per sample. It also reports per-marker confidence stats for the called terminal lineage and flags low-confidence calls (prefixing `called_lineage` with `*`).
+
+If `--type_scheme` is supplied to trepogeno it is passed through as the scheme TSV so the script can read the true `use_ref_allele` flag (the `*` prefix on a lineage) rather than inferring it from the dominant genotype, which is unreliable for cross-branch nodes.
+
+It can also be run standalone outside of trepogeno on any set of mykrobe JSONs:
+```
+python3 -m nextstrain.post_process_json.summarise_trepogeno_lineage_calls \
+  -o summary.csv -s files/scheme.tsv results/*.json
+```
+

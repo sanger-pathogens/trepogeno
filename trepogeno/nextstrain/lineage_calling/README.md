@@ -3,7 +3,7 @@ This directory contains the scripts that are used for lineage calling using mykr
 ### Argument Example
 trepogeno \
 --json_directory files/json_outputs \
---genomic_reference files/reference/nc_021508.fasta \
+--genomic_reference files/reference/Treponema_pallidum_subsp_pallidum_SS14_v2.fa \
 --probe_and_lineage_dir files/probes \
 --seq_manifest /data/nexstrain/manifest.csv \
 --lineage_call \
