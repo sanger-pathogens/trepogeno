@@ -12,11 +12,20 @@ else:
     raise ImportError(f"Expected mykrobe src at {mykrobe_src}, but it was not found.")
 
 
-#Custom functions, these import functions from other script to keep things modular  
+#Custom functions, these import functions from other script to keep things modular
 from nextstrain.post_process_json.tabulate_json import run_tabulate_json
 from nextstrain.post_process_json.summarise_trepogeno_lineage_calls import run_summarise_lineage_calls
 from nextstrain.create_probes.create_probes import create_probes
 from nextstrain.lineage_calling.run_mykrobe_lineage_calling import run_mykrobe_lineage_call
+
+def positive_int(value):
+    try:
+        ivalue = int(value)
+    except ValueError:
+        raise argparse.ArgumentTypeError(f"kmer_size must be an integer, got '{value}'")
+    if ivalue <= 0:
+        raise argparse.ArgumentTypeError(f"kmer_size must be a positive integer, got '{value}'")
+    return ivalue
 
 def parse_arguments():
     parser = argparse.ArgumentParser(
@@ -61,6 +70,7 @@ def parse_arguments():
     parser.add_argument(
         "--kmer_size",
         help="The kmer size to use when creating probes with --make_probes, defaults to 21. Not needed for --lineage_call, the kmer size is inferred automatically from the probe file.",
+        type=positive_int,
         default=21,
     )
 
@@ -106,9 +116,13 @@ def parse_arguments():
     if args.make_probes:
         if not args.type_scheme:
             parser.error("The typing scheme was not provided but is required for making probes")
+        elif not args.type_scheme.exists():
+            parser.error(f"--type_scheme file not found: {args.type_scheme}")
 
         if not args.genomic_reference:
             parser.error("The genomic reference was not provided but is required for making probes")
+        elif not args.genomic_reference.exists():
+            parser.error(f"--genomic_reference file not found: {args.genomic_reference}")
 
     if args.lineage_call:
         if args.seq_manifest and args.read1:
@@ -117,8 +131,21 @@ def parse_arguments():
             parser.error("Either --seq_manifest or --read1 must be provided for calling lineages")
         if args.read1 and not args.sample_id:
             parser.error("--sample_id is required when calling a single sample directly with --read1")
+        if args.seq_manifest and not args.seq_manifest.exists():
+            parser.error(f"--seq_manifest file not found: {args.seq_manifest}")
+        if args.read1 and not args.read1.exists():
+            parser.error(f"--read1 file not found: {args.read1}")
+        if args.read2 and not args.read2.exists():
+            parser.error(f"--read2 file not found: {args.read2}")
         if not args.json_directory:
             parser.error("A direcory to store jsons was not provided but is required for calling lineages")
+
+        probe_fasta = Path(f"{args.probe_prefix}.fa")
+        probe_lineage_json = Path(f"{args.probe_prefix}.json")
+        if not probe_fasta.exists():
+            parser.error(f"Probe file not found: {probe_fasta}")
+        if not probe_lineage_json.exists():
+            parser.error(f"Lineage file not found: {probe_lineage_json}")
     return args
 
 def create_probes_from_type_scheme(type_scheme,genomic_reference,probe_prefix,kmer_size):
