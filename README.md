@@ -4,17 +4,21 @@ This repo contains scripts that wrap around mykrobe for the lineage calling of *
 The tool, currently nicknamed trepogeno, can be installed as a system-wide package with the below instructions:
 
 To set up the tool you must first:
-1. git clone --recursive https://gitlab.internal.sanger.ac.uk/sanger-pathogens/nextstrain.git
-2. cd nextstrain/trepogeno/
-3. pip3 install -e .
+```
+git clone --recursive https://gitlab.internal.sanger.ac.uk/sanger-pathogens/nextstrain.git
+cd nextstrain/trepogeno/
+pip3 install -e .
+```
 
 Next, to ensure the mccortex binaries for mykrobe compile correctly:
 
-1. cd nextstrain/mykrobe
-2. git clone --recursive -b geno_kmer_count https://github.com/Mykrobe-tools/mccortex mccortex
-3. cd mccortex
-4. make
-5. cp bin/mccortex31 ../src/mykrobe/cortex
+```
+cd nextstrain/mykrobe
+git clone --recursive -b geno_kmer_count https://github.com/Mykrobe-tools/mccortex mccortex
+cd mccortex
+make
+cp bin/mccortex31 ../src/mykrobe/cortex
+```
 
 ## trepogeno
 This is the main script; once installed system-wide as detailed above, it can be called from anywhere with `trepogeno --argument 1`
