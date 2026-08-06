@@ -65,7 +65,7 @@ def filter_to_single_rows(call_summary_table, json_directory):
     call_summary_supported_best = call_summary_table_supported_sorted.groupby("Sample ID").head(1)
 
     # Save or display
-    call_summary_supported_best.to_csv(Path(json_directory) / "deepsest_lineage_called_all.csv", index=False)
+    call_summary_supported_best.to_csv(Path(json_directory) / "deepest_lineage_called_all.csv", index=False)
 
 def create_and_write_table(full_dictionary, json_directory):
     data = []
