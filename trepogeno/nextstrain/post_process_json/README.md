@@ -1,23 +1,24 @@
 ## Tabulate 
 ## Function:
-This script is made for the purpose of collecting the json files produced by mykrobe, collating important information, and outputting it in a more human readable readible, and easily pasable form.
+This script is made for the purpose of collecting the json files produced by mykrobe, collating important information, and outputting it in a more human-readable and easily parsable form.
 
 ### Argument Example
 
-trepogeno --json_directory /path/to/json/files/directory/ 
+```
+trepogeno --json_directory /path/to/json/files/directory/
+```
 
 ### Inputs
-A path to a directory containing the .json files prodcued by mykrobe 
+A path to a directory containing the .json files produced by mykrobe 
 supplied by the --json_directory flag
 
 #### Run time function 
-This nested dictionary structure is created internally during procesing.  
-Each json file is a top level key with each containing sets of dictionaries for each lineage that had support. 
-If the flag --check_all is set the script creates a dictionary and checks how many snps were called for every lineage not just the lineages with support
+This nested dictionary structure is created internally during processing.  
+Each json file is a top level key, with each containing sets of dictionaries for each lineage present in that sample's output — recording how many SNPs were called versus how many were possible, not just the lineages with support.
 ```
    single_sample_dictionary_full = { 
         ERR9768236{ 
-            TPE"{ 
+            TPE{ 
                 calls_made:668,possible_calls:700 
             }, 
             TPE.1.3{ 
@@ -26,7 +27,7 @@ If the flag --check_all is set the script creates a dictionary and checks how ma
             ... 
         }, 
         SRR14277265{ 
-            TPE"{ 
+            TPE{ 
                 calls_made:1,possible_calls:700 
             }, 
             TPE.1.3{ 
