@@ -60,7 +60,7 @@ def parse_arguments():
 
     parser.add_argument(
         "--kmer_size",
-        help="The kmer size to use for probe creation and lineage calling, defaults to 21",
+        help="The kmer size to use when creating probes with --make_probes, defaults to 21. Not needed for --lineage_call, the kmer size is inferred automatically from the probe file.",
         default=21,
     )
 
@@ -71,14 +71,10 @@ def parse_arguments():
     )
 
     parser.add_argument(
-        "--probe_and_lineage_dir",
-        help="The directory in which to save the probe and lineage files if being regenerated and or the location in which the probe and lineage file can be found for lineage calling",
-        default="./"
-    )
-
-    parser.add_argument(
-        "--probe_lineage_name",
-        help="Provide this flag if you want you want to name the probes and lienage json when creating a new set of probes, otherwise defaults to probes.fa & lineage.json, provide this flag with lineage calling if using non default probe names",
+        "--probe_prefix",
+        help="Path prefix (without extension) for the probe and lineage files, e.g. files/probes/custom writes/reads files/probes/custom.fa and files/probes/custom.json. Defaults to ./probes",
+        type=Path,
+        default=Path("./probes"),
     )
 
     args = parser.parse_args()
@@ -91,24 +87,21 @@ def parse_arguments():
         if not args.type_scheme:
             parser.error("The typing scheme was not provided but is required for making probes")
 
-        if not args.genomic_reference:    
+        if not args.genomic_reference:
             parser.error("The genomic reference was not provided but is required for making probes")
 
     if args.lineage_call:
-        if not args.genomic_reference:
-            parser.error("The genomic reference was not provided but is required for calling lineages")
-
         if not args.seq_manifest:
             parser.error("A sequence manifest was not provided but is required for calling lineages")
         if not args.json_directory:
             parser.error("A direcory to store jsons was not provided but is required for calling lineages")
     return args
 
-def create_probes_from_type_scheme(type_scheme,genomic_reference,probe_and_lineage_dir,probe_lineage_name,kmer_size):
-    create_probes(type_scheme,genomic_reference,probe_and_lineage_dir,probe_lineage_name,kmer_size)
+def create_probes_from_type_scheme(type_scheme,genomic_reference,probe_prefix,kmer_size):
+    create_probes(type_scheme,genomic_reference,probe_prefix,kmer_size)
 
-def run_lineage_call(probe_directory,sequence_manifest,json_directory,probe_lineage_name,kmer_size):
-    run_mykrobe_lineage_call(probe_directory,sequence_manifest,json_directory,probe_lineage_name,kmer_size)
+def run_lineage_call(probe_prefix,sequence_manifest,json_directory):
+    run_mykrobe_lineage_call(probe_prefix,sequence_manifest,json_directory)
 
 def concatenate_and_read_json(json_directory, type_scheme=None):
     run_tabulate_json(json_directory)
@@ -117,11 +110,11 @@ def concatenate_and_read_json(json_directory, type_scheme=None):
 def main():
     args = parse_arguments()
 
-    if args.make_probes: 
-        create_probes_from_type_scheme( args.type_scheme, args.genomic_reference, args.probe_and_lineage_dir, args.probe_lineage_name,args.kmer_size)
+    if args.make_probes:
+        create_probes_from_type_scheme( args.type_scheme, args.genomic_reference, args.probe_prefix, args.kmer_size)
 
     if args.lineage_call:
-        run_lineage_call(args.probe_and_lineage_dir,args.seq_manifest,args.json_directory,args.probe_lineage_name,args.kmer_size)
+        run_lineage_call(args.probe_prefix,args.seq_manifest,args.json_directory)
 
     if args.tabulate_jsons:
         concatenate_and_read_json(args.json_directory, args.type_scheme)

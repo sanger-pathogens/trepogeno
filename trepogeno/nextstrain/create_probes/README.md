@@ -5,9 +5,8 @@ trepogeno \
 --json_directory files/json_outputs \
 --type_scheme files/2026-05-12__07_masked_snpsAF09DP5_n10.diagnostic_SNPs_Mykrobe_2026-08-04_b.tsv \
 --genomic_reference files/reference/Treponema_pallidum_subsp_pallidum_SS14_v2.fa \
---probe_and_lineage_dir files/probes \
---make_probes \
---probe_lineage_name custom_typing 
+--probe_prefix files/probes/custom_typing \
+--make_probes
 
 ### Output
 custom_typing.fa
@@ -32,11 +31,8 @@ Instead we use redirect_stdout from contextlib to save to a file and can then sa
 --genomic_reference (required)
     Path to a fasta file that acts as the genomic reference, must match the reference used in the typing scheme
 
---probe_and_lineage_dir (optional; Deafult './')
-    This is the directory in which to save the probe and lineage file during probe creation
-
---probe_lineage_name (optional; Deafult 'probe.fa' & 'lineage.json')
-    what to call the probe.fa file and lineage.json when writing an output
+--probe_prefix (optional; Deafult './probes')
+    Path prefix (without extension) for the probe.fa and lineage.json files to write, e.g. files/probes/custom_typing writes files/probes/custom_typing.fa and files/probes/custom_typing.json
 
 --kmer_size (optional; Deafult '21')
     what kmer size to use when creating the probes

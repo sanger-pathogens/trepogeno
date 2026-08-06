@@ -29,20 +29,17 @@ trepogeno \\
 --json_directory files/json_outputs \\  
 --type_scheme files/2026-05-12__07_masked_snpsAF09DP5_n10.diagnostic_SNPs_Mykrobe_2026-08-04_b.tsv \\   
 --genomic_reference files/reference/Treponema_pallidum_subsp_pallidum_SS14_v2.fa \\  
---probe_and_lineage_dir files/probes \\     
---make_probes \\    
---probe_lineage_name custom_probe_name
+--probe_prefix files/probes/custom_probe_name \\     
+--make_probes
 
 ## Lineage calling
-Required are the lineage and probe files made by mykrobe, a genomic reference, and a manifest containing paths to the reads you want called.
+Required are the lineage and probe files made by mykrobe, and a manifest containing paths to the reads you want called.
 
 trepogeno \\    
 --json_directory files/json_outputs \\  
---genomic_reference files/reference/Treponema_pallidum_subsp_pallidum_SS14_v2.fa \\  
---probe_and_lineage_dir files/probes \\     
+--probe_prefix files/probes/custom_probe_name \\     
 --seq_manifest /data/nexstrain/manifest.csv \\  
---lineage_call \\   
---probe_lineage_name custom_probe_name
+--lineage_call
 
 
 ## Process and summarise the mykrobe json outputs
@@ -58,10 +55,9 @@ trepogeno \\
 --json_directory files/json_outputs \\
 --type_scheme files/2026-05-12__07_masked_snpsAF09DP5_n10.diagnostic_SNPs_Mykrobe_2026-08-04_b.tsv \\  
 --genomic_reference files/reference/Treponema_pallidum_subsp_pallidum_SS14_v2.fa \\  
---probe_and_lineage_dir files/probes \\ 
+--probe_prefix files/probes/custom_probes \\ 
 --make_probes \\    
 --seq_manifest /data/nexstrain/manifest.csv \\  
---probe_lineage_name custom_probes \\   
 --tabulate_jsons \\ 
 --lineage_call
 
@@ -78,11 +74,8 @@ Make Probes
 --genomic_reference 
     A fasta file that acts as the genomic reference, must match the reference in the type scheme
 
---probe_and_lineage_dir 
-    This is the directory in which to save the probe and lineage file during probe creation
-
---probe_lineage_name    
-    what to call the custom probe.fa file and lineage.json when writing an output. This changes the prefix, if you supply custom the output will be custom.fa & custom.json. Ommit this flag and it will name them probe.fa and lienage.json.
+--probe_prefix
+    Path prefix (without extension) for the probe and lineage files to write, e.g. files/probes/custom writes files/probes/custom.fa and files/probes/custom.json. Defaults to ./probes
 
 --kmer_size 
     what kmer size to use when creating the probes. defaults to 21
@@ -98,17 +91,8 @@ Lineage Calling
 --seq_manifest  
     A manifest of Sample ID and sequences, the heading should be ID,Read1,Read2. If you are not using paired end fastqs and only have one read leave a trailing , e.g. 'ReadID,/fastq/ReadID1.fastq,'
 
---genomic_reference 
-    Provide a path to a fasta file that acts as the genomic reference, must match the reference in the type scheme
-
---probe_and_lineage_dir 
-    This is the directory in which probe.fa and lineage.json file are located
-
---probe_lineage_name    
-    If you wish to use custom probe and lineage files this flag lets you set the name. they must either be the same name prefix e.g custom.fa and custom.json or else ommit this flag and it will instead look for a probe.fa and lineage.json file in the directory you specify. 
-
---kmer_size 
-    what kmer size to use when lineage calling, must match what was used when creating probes, default 21
+--probe_prefix
+    Path prefix (without extension) of the probe.fa and lineage.json files to read, e.g. files/probes/custom reads files/probes/custom.fa and files/probes/custom.json. Defaults to ./probes. The kmer size used is read automatically from the probe file, it does not need to be supplied separately.
 
 Json Processing
 -----------

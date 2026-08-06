@@ -1,39 +1,62 @@
-from types import SimpleNamespace as Namespace  
+from types import SimpleNamespace as Namespace
 from  nextstrain.mykrobe.src.mykrobe.cmds.amr import run as run_lineage_call
-import os 
+from collections import Counter
+import os
 
 def check_lineage_file(json_directory,):
     os.makedirs(json_directory, exist_ok=True)
 
 
+def infer_kmer_size_from_probes(probe_fasta_path):
+    """Probe length is (2*kmer - 1), not kmer itself, so back it out from the most common probe length in the file."""
+    lengths = Counter()
+    sequence_length = 0
+    started = False
+    with open(probe_fasta_path) as fasta:
+        for line in fasta:
+            line = line.strip()
+            if line.startswith(">"):
+                if started and sequence_length:
+                    lengths[sequence_length] += 1
+                sequence_length = 0
+                started = True
+                continue
+            if started:
+                sequence_length += len(line)
+    if started and sequence_length:
+        lengths[sequence_length] += 1
 
-def run_mykrobe_lineage_call(probe_json_directory, sequence_manifest,json_directory,probe_lineage_name,kmer_size):
+    if not lengths:
+        raise ValueError(f"Could not determine kmer size: no sequence found in {probe_fasta_path}")
+
+    most_common_probe_length = lengths.most_common(1)[0][0]
+    return (most_common_probe_length + 1) // 2
+
+
+def run_mykrobe_lineage_call(probe_prefix, sequence_manifest, json_directory):
     check_lineage_file(json_directory)
+
+    probe_path = f"{probe_prefix}.fa"
+    lineage_path = f"{probe_prefix}.json"
+    kmer_size = infer_kmer_size_from_probes(probe_path)
 
     with open(sequence_manifest, "r") as manifest: #This is loop is for parsing a manifest with the structure ID,Read1,Read2
         next(manifest)  # Skip header line
         for line in manifest: # For each new unique sample
-            if not line.strip(): 
+            if not line.strip():
                 continue  # Skip empty lines
             if line.startswith("#"): # Skip comments
                   continue
 
-            ID, sequence1, sequence2 = line.strip().split(",") #Get each part 
+            ID, sequence1, sequence2 = line.strip().split(",") #Get each part
             sequences = [sequence1]
             if sequence2: #The fastq does not have to be paired if it in't we can continute with the first fastq (validation of the file suffix should be added)
                 sequences.append(sequence2)
 
-            if probe_lineage_name: #If we are using probe and lineage files with custom name
-                probe_name = f"{probe_lineage_name}.fa"
-                lineage_name = f"{probe_lineage_name}.json"
-            else: #If we are using the deafult names
-                probe_name = "probe.fa"
-                lineage_name = "lineage.json"
-
             #Mykrobe has many different arguments captured from the user, we mockup this namespace below so we can use it in our function call
             args = Namespace(
-                custom_probe_set_path=f"{probe_json_directory}/{probe_name}",
-                custom_lineage_json=f"{probe_json_directory}/{lineage_name}",
+                custom_probe_set_path=probe_path,
+                custom_lineage_json=lineage_path,
                 species="custom",
                 report_all_calls=True,
                 sample=ID,

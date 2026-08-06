@@ -3,11 +3,9 @@ This directory contains the scripts that are used for lineage calling using mykr
 ### Argument Example
 trepogeno \
 --json_directory files/json_outputs \
---genomic_reference files/reference/Treponema_pallidum_subsp_pallidum_SS14_v2.fa \
---probe_and_lineage_dir files/probes \
+--probe_prefix files/probes/custom_probes \
 --seq_manifest /data/nexstrain/manifest.csv \
---lineage_call \
---probe_lineage_name custom_probes
+--lineage_call
 
 ### Output
 sample.json (one json for each sample used in calling)
@@ -27,17 +25,8 @@ This script is mostly consists of parsing the manifest matching, getting the pro
 --seq_manifest (required)
     A manifest of Sample ID sequences as a CSV, the heading should be ID,Read1,Read2. If you are not using paired end fastqs and only have one Read leave a trailing , e.g. 'ReadID,/fastq/ReadID1.fastq,'
 
---genomic_reference (required)
-    A fasta file that acts as the genomic reference, must match the reference in the type scheme
-
---probe_and_lineage_dir (required)
-    This is the directory in which to save the probe and lineage file during probe creation
-
---probe_lineage_name (optional if your probe/lineage names were left as the deafult probe.fa and lineage.json)
-    The name of the probe.fa and lineage.json files
-
---kmer_size (optional; Deafult '21'. Must match kmer size in previous create_probes step)
-    what kmer size to use when lineage calling, must match what was used when creating probes
+--probe_prefix (optional; Deafult './probes')
+    Path prefix (without extension) of the probe.fa and lineage.json files to read, e.g. files/probes/custom_probes reads files/probes/custom_probes.fa and files/probes/custom_probes.json. The kmer size is read automatically from the probe file, so it does not need to be supplied here and cannot drift from what was used at probe-creation time.
 ```
 
 Further details can be found here:

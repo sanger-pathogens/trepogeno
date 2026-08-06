@@ -6,14 +6,10 @@ from contextlib import redirect_stdout
 #mykrobe functions
 from nextstrain.mykrobe.src.mykrobe.cmds.makeprobes import run as run_make_variant_probes
 
-def create_probes(reference_coordinate_filepath, reference_filepath,probe_and_lineage_dir,probe_lineage_name,kmer_size):
-    default_lineage_path = os.path.join(probe_and_lineage_dir,"/lineage.json") #The probe_and_lineage_dir argument is used for both the lineage and probes file
-    default_probe_path = os.path.join(probe_and_lineage_dir, "probe.fa") # we use them to set deault paths to the files  
-
-    if probe_lineage_name:
-        lineage_path = f"{probe_and_lineage_dir}/{probe_lineage_name}.json"
-    else:
-        lineage_path = default_lineage_path
+def create_probes(reference_coordinate_filepath, reference_filepath, probe_prefix, kmer_size):
+    probe_prefix = str(probe_prefix)
+    lineage_path = f"{probe_prefix}.json"
+    probes_path = f"{probe_prefix}.fa"
 
     args = Namespace(
         no_backgrounds=True,
@@ -21,18 +17,14 @@ def create_probes(reference_coordinate_filepath, reference_filepath,probe_and_li
         vcf=None,
         genbank=None,
         text_file=reference_coordinate_filepath,
-        kmer=kmer_size, # Mykrobe default kmer size, we should allow this to be set by the user in the future
-        lineage=lineage_path, # Mykrobe requries a path to store the lineage json 
+        kmer=kmer_size,
+        lineage=lineage_path, # Mykrobe requries a path to store the lineage json
         reference_filepath=reference_filepath
     )
 
     # Mykrobe doesn't take the probe path as an argument instead relying on users redirecting standard out with >
     # As such we need to redirect standard out when using the function to the probe path
-    os.makedirs(probe_and_lineage_dir, exist_ok=True)
-    if probe_lineage_name:
-        probes_path = os.path.join(probe_and_lineage_dir, f"{probe_lineage_name}.fa")
-    else:
-        probes_path = default_probe_path
+    os.makedirs(os.path.dirname(probes_path) or ".", exist_ok=True)
 
     with open(probes_path, "w") as f:
         with redirect_stdout(f):  # Redirects all sys.stdout writes
