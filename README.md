@@ -41,13 +41,24 @@ trepogeno \
 ```
 
 ## Lineage calling
-You need the lineage and probe files made by mykrobe, and a manifest containing paths to the reads you want called.
+You need the lineage and probe files made by mykrobe, and either a manifest containing paths to the reads you want called, or a single --read1/--read2 pair.
 
 ```
 trepogeno \
 --json_directory files/json_outputs \
 --probe_prefix files/probes/custom_probe_name \
 --seq_manifest /data/nexstrain/manifest.csv \
+--lineage_call
+```
+
+Or, to call a single sample directly without a manifest:
+```
+trepogeno \
+--json_directory files/json_outputs \
+--probe_prefix files/probes/custom_probe_name \
+--read1 /data/nexstrain/sample_1.fastq.gz \
+--read2 /data/nexstrain/sample_2.fastq.gz \
+--sample_id sample_name \
 --lineage_call
 ```
 
@@ -102,8 +113,17 @@ Lineage Calling
 --json_directory    
     A path to the directory for mykrobe to save its JSON files after calling a lineage. These will be named based on the ID supplied in the manifest, e.g. SRR567232.json
 
---seq_manifest  
+--seq_manifest (required, unless using --read1)
     A manifest of Sample ID and sequences, the heading should be ID,Read1,Read2. If you are not using paired-end fastqs and only have one read, leave a trailing comma, e.g. 'ReadID,/fastq/ReadID1.fastq,'
+
+--read1 (required, unless using --seq_manifest)
+    Path to a fastq file to call a single sample directly, instead of via a manifest. Provide either --seq_manifest or --read1, not both.
+
+--read2 (optional)
+    Path to the second fastq of a pair, if using --read1. Omit for single-end reads.
+
+--sample_id (required if using --read1)
+    Sample ID to use when calling a single sample directly with --read1/--read2.
 
 --probe_prefix
     Path prefix (without extension) of the probe.fa and lineage.json files to read, e.g. files/probes/custom reads files/probes/custom.fa and files/probes/custom.json. Defaults to ./probes. The kmer size used is read automatically from the probe file, so it does not need to be supplied separately.

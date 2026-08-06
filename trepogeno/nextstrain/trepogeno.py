@@ -66,8 +66,25 @@ def parse_arguments():
 
     parser.add_argument(
         "--seq_manifest",
-        help="A manifest of Sample ID sequences as a CSV, the heading should be ID,Read1,Read2. ",
+        help="A manifest of Sample ID sequences as a CSV, the heading should be ID,Read1,Read2. Alternative to --read1/--read2 for calling a single sample directly.",
         type=Path,
+    )
+
+    parser.add_argument(
+        "--read1",
+        help="Path to a fastq file to call a single sample directly, instead of via --seq_manifest. Requires --sample_id.",
+        type=Path,
+    )
+
+    parser.add_argument(
+        "--read2",
+        help="Path to the second fastq of a pair, if using --read1. Optional, omit for single-end reads.",
+        type=Path,
+    )
+
+    parser.add_argument(
+        "--sample_id",
+        help="Sample ID to use when calling a single sample directly with --read1/--read2.",
     )
 
     parser.add_argument(
@@ -78,6 +95,9 @@ def parse_arguments():
     )
 
     args = parser.parse_args()
+
+    if not (args.make_probes or args.lineage_call or args.tabulate_jsons):
+        parser.error("No action specified: provide at least one of --make_probes, --lineage_call, --tabulate_jsons")
 
     if  args.tabulate_jsons and args.json_directory is None:
         parser.error("The json_directory was not found or provided correctly for processing!")
@@ -91,8 +111,12 @@ def parse_arguments():
             parser.error("The genomic reference was not provided but is required for making probes")
 
     if args.lineage_call:
-        if not args.seq_manifest:
-            parser.error("A sequence manifest was not provided but is required for calling lineages")
+        if args.seq_manifest and args.read1:
+            parser.error("Provide either --seq_manifest or --read1, not both")
+        if not args.seq_manifest and not args.read1:
+            parser.error("Either --seq_manifest or --read1 must be provided for calling lineages")
+        if args.read1 and not args.sample_id:
+            parser.error("--sample_id is required when calling a single sample directly with --read1")
         if not args.json_directory:
             parser.error("A direcory to store jsons was not provided but is required for calling lineages")
     return args
@@ -100,8 +124,8 @@ def parse_arguments():
 def create_probes_from_type_scheme(type_scheme,genomic_reference,probe_prefix,kmer_size):
     create_probes(type_scheme,genomic_reference,probe_prefix,kmer_size)
 
-def run_lineage_call(probe_prefix,sequence_manifest,json_directory):
-    run_mykrobe_lineage_call(probe_prefix,sequence_manifest,json_directory)
+def run_lineage_call(probe_prefix,json_directory,sequence_manifest=None,sample_id=None,read1=None,read2=None):
+    run_mykrobe_lineage_call(probe_prefix,json_directory,sequence_manifest=sequence_manifest,sample_id=sample_id,read1=read1,read2=read2)
 
 def concatenate_and_read_json(json_directory, type_scheme=None):
     run_tabulate_json(json_directory)
@@ -114,7 +138,7 @@ def main():
         create_probes_from_type_scheme( args.type_scheme, args.genomic_reference, args.probe_prefix, args.kmer_size)
 
     if args.lineage_call:
-        run_lineage_call(args.probe_prefix,args.seq_manifest,args.json_directory)
+        run_lineage_call(args.probe_prefix,args.json_directory,sequence_manifest=args.seq_manifest,sample_id=args.sample_id,read1=args.read1,read2=args.read2)
 
     if args.tabulate_jsons:
         concatenate_and_read_json(args.json_directory, args.type_scheme)
