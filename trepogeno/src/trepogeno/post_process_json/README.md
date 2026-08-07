@@ -62,7 +62,7 @@ If `--type_scheme` is supplied to trepogeno it is passed through as the scheme T
 
 It can also be run standalone outside of trepogeno on any set of mykrobe JSONs:
 ```
-python3 -m nextstrain.post_process_json.summarise_trepogeno_lineage_calls \
+python3 -m trepogeno.post_process_json.summarise_trepogeno_lineage_calls \
   -o summary.csv -s files/scheme.tsv results/*.json
 ```
 

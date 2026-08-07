@@ -1,5 +1,5 @@
 from types import SimpleNamespace as Namespace
-from  nextstrain.mykrobe.src.mykrobe.cmds.amr import run as run_lineage_call
+from  trepogeno.mykrobe.src.mykrobe.cmds.amr import run as run_lineage_call
 from collections import Counter
 import os
 

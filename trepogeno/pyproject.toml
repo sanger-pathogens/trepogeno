@@ -18,4 +18,4 @@ dependencies = [
 ]
 
 [project.scripts]
-trepogeno = "nextstrain.trepogeno:main"
+trepogeno = "trepogeno.trepogeno:main"

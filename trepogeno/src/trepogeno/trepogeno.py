@@ -13,10 +13,10 @@ else:
 
 
 #Custom functions, these import functions from other script to keep things modular
-from nextstrain.post_process_json.tabulate_json import run_tabulate_json
-from nextstrain.post_process_json.summarise_trepogeno_lineage_calls import run_summarise_lineage_calls
-from nextstrain.create_probes.create_probes import create_probes
-from nextstrain.lineage_calling.run_mykrobe_lineage_calling import run_mykrobe_lineage_call
+from trepogeno.post_process_json.tabulate_json import run_tabulate_json
+from trepogeno.post_process_json.summarise_trepogeno_lineage_calls import run_summarise_lineage_calls
+from trepogeno.create_probes.create_probes import create_probes
+from trepogeno.lineage_calling.run_mykrobe_lineage_calling import run_mykrobe_lineage_call
 
 def positive_int(value):
     try:

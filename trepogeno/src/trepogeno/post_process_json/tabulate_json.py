@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 
 #This function is imported for injecting java script into the html
-from nextstrain.post_process_json.style import style_html
+from trepogeno.post_process_json.style import style_html
 
 def get_all_lineage_calls_for_one_sample(json_dict,full_dictionary):
     """

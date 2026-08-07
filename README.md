@@ -5,15 +5,15 @@ The tool, currently nicknamed trepogeno, can be installed as a system-wide packa
 
 To set up the tool you must first:
 ```
-git clone --recursive https://gitlab.internal.sanger.ac.uk/sanger-pathogens/nextstrain.git
-cd nextstrain/trepogeno/
+git clone --recursive https://gitlab.internal.sanger.ac.uk/sanger-pathogens/trepogeno.git
+cd trepogeno/trepogeno/
 pip3 install -e .
 ```
 
 Next, to ensure the mccortex binaries for mykrobe compile correctly:
 
 ```
-cd nextstrain/mykrobe
+cd src/trepogeno/mykrobe
 git clone --recursive -b geno_kmer_count https://github.com/Mykrobe-tools/mccortex mccortex
 cd mccortex
 make
@@ -34,8 +34,8 @@ For more information on creating a typing scheme, refer to the typing scheme rul
 ```
 trepogeno \
 --json_directory files/json_outputs \
---type_scheme files/2026-05-12__07_masked_snpsAF09DP5_n10.diagnostic_SNPs_Mykrobe_2026-08-04_b.tsv \
---genomic_reference files/reference/Treponema_pallidum_subsp_pallidum_SS14_v2.fa \
+--type_scheme data/2026-05-12__07_masked_snpsAF09DP5_n10.diagnostic_SNPs_Mykrobe_2026-08-04_b.tsv \
+--genomic_reference data/Treponema_pallidum_subsp_pallidum_SS14_v2.fa \
 --probe_prefix files/probes/custom_probe_name \
 --make_probes
 ```
@@ -76,8 +76,8 @@ trepogeno \
 ```
 trepogeno \
 --json_directory files/json_outputs \
---type_scheme files/2026-05-12__07_masked_snpsAF09DP5_n10.diagnostic_SNPs_Mykrobe_2026-08-04_b.tsv \
---genomic_reference files/reference/Treponema_pallidum_subsp_pallidum_SS14_v2.fa \
+--type_scheme data/2026-05-12__07_masked_snpsAF09DP5_n10.diagnostic_SNPs_Mykrobe_2026-08-04_b.tsv \
+--genomic_reference data/Treponema_pallidum_subsp_pallidum_SS14_v2.fa \
 --probe_prefix files/probes/custom_probes \
 --make_probes \
 --seq_manifest /data/nexstrain/manifest.csv \

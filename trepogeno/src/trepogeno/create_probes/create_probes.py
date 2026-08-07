@@ -4,7 +4,7 @@ import os
 from contextlib import redirect_stdout
 
 #mykrobe functions
-from nextstrain.mykrobe.src.mykrobe.cmds.makeprobes import run as run_make_variant_probes
+from trepogeno.mykrobe.src.mykrobe.cmds.makeprobes import run as run_make_variant_probes
 
 def create_probes(reference_coordinate_filepath, reference_filepath, probe_prefix, kmer_size):
     probe_prefix = str(probe_prefix)

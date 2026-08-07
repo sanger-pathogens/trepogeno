@@ -4,8 +4,8 @@ This directory contains the scripts that are used for making calls to mykrobe an
 ```
 trepogeno \
 --json_directory files/json_outputs \
---type_scheme files/2026-05-12__07_masked_snpsAF09DP5_n10.diagnostic_SNPs_Mykrobe_2026-08-04_b.tsv \
---genomic_reference files/reference/Treponema_pallidum_subsp_pallidum_SS14_v2.fa \
+--type_scheme data/2026-05-12__07_masked_snpsAF09DP5_n10.diagnostic_SNPs_Mykrobe_2026-08-04_b.tsv \
+--genomic_reference data/Treponema_pallidum_subsp_pallidum_SS14_v2.fa \
 --probe_prefix files/probes/custom_typing \
 --make_probes
 ```
