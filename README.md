@@ -7,13 +7,19 @@
 
 # Trepogeno
 
-This repo contains scripts that wrap around mykrobe for the lineage calling of *Treponema* strains.
-The tool, currently nicknamed trepogeno, can be installed as a system-wide package with the below instructions:
+This repo contains scripts that wrap around mykrobe for the lineage calling of *Treponema pallidum* strains.
+The tool, named trepogeno, can be installed as a system-wide package with the below instructions:
 
 To set up the tool you must first:
 ```
 git clone --recursive https://gitlab.internal.sanger.ac.uk/sanger-pathogens/trepogeno.git
-cd trepogeno/trepogeno/
+cd trepogeno/trepogeno
+```
+
+Create a conda environment with python 3.8 and install trepogeno into it:
+```
+conda create -n trepogeno python=3.8
+conda activate trepogeno
 pip3 install -e .
 ```
 
@@ -25,6 +31,11 @@ git clone --recursive -b geno_kmer_count https://github.com/Mykrobe-tools/mccort
 cd mccortex
 make
 cp bin/mccortex31 ../src/mykrobe/cortex
+```
+
+Confirm the install worked:
+```
+trepogeno --help
 ```
 
 ## trepogeno
