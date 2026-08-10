@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/trepogeno-logo-dark.svg">
+    <img alt="trepogeno" src="assets/trepogeno-logo-light.svg" width="420">
+  </picture>
+</p>
+
 # Trepogeno
 
 This repo contains scripts that wrap around mykrobe for the lineage calling of *Treponema* strains.

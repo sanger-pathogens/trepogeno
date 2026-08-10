@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../../../../assets/trepogeno-logo-dark.svg">
+    <img alt="trepogeno" src="../../../../assets/trepogeno-logo-light.svg" width="420">
+  </picture>
+</p>
+
 ## Tabulate 
 ## Function:
 This script is made for the purpose of collecting the json files produced by mykrobe, collating important information, and outputting it in a more human-readable and easily parsable form.

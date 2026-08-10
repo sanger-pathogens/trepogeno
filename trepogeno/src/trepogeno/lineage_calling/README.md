@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../../../../assets/trepogeno-logo-dark.svg">
+    <img alt="trepogeno" src="../../../../assets/trepogeno-logo-light.svg" width="420">
+  </picture>
+</p>
+
 This directory contains the scripts that are used for lineage calling using mykrobe and for outputting the sample.json files for each sample containing the call information.
 
 ### Argument Example

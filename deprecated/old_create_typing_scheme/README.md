@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../../assets/trepogeno-logo-dark.svg">
+    <img alt="trepogeno" src="../../assets/trepogeno-logo-light.svg" width="420">
+  </picture>
+</p>
+
 # **THESE SCRIPTS ARE SEPARATE FROM THE MAIN TOOL AND UNUSED**
 
 ## The following scripts are _one_ way you can make a typing scheme required by mykrobe custom lineage calling

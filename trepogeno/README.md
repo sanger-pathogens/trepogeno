@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../assets/trepogeno-logo-dark.svg">
+    <img alt="trepogeno" src="../assets/trepogeno-logo-light.svg" width="420">
+  </picture>
+</p>
+
 Typing scheme rule book.
 
 A required input when performing custom lineage calling is a typing scheme, which mykrobe sometimes refers to as a reference coordinate file.

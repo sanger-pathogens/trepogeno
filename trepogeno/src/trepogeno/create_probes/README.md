@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="../../../../assets/trepogeno-logo-dark.svg">
+    <img alt="trepogeno" src="../../../../assets/trepogeno-logo-light.svg" width="420">
+  </picture>
+</p>
+
 This directory contains the scripts that are used for making calls to mykrobe and for outputting the probe and taxonomy files that are later used for lineage calling.
 
 ### Argument Example
