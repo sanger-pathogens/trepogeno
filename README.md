@@ -12,7 +12,7 @@ The tool, named trepogeno, can be installed as a system-wide package with the be
 
 To set up the tool you must first:
 ```
-git clone --recursive https://gitlab.internal.sanger.ac.uk/sanger-pathogens/trepogeno.git
+git clone --recurse-submodules https://github.com/sanger-pathogens/trepogeno.git
 cd trepogeno/trepogeno
 ```
 
@@ -27,7 +27,7 @@ Next, to ensure the mccortex binaries for mykrobe compile correctly:
 
 ```
 cd src/trepogeno/mykrobe
-git clone --recursive -b geno_kmer_count https://github.com/Mykrobe-tools/mccortex mccortex
+git clone --recurse-submodules -b geno_kmer_count https://github.com/Mykrobe-tools/mccortex mccortex
 cd mccortex
 make
 cp bin/mccortex31 ../src/mykrobe/cortex
@@ -39,7 +39,7 @@ trepogeno --help
 ```
 
 ## trepogeno
-This is the main script; once installed system-wide as detailed above, it can be called from anywhere with `trepogeno --argument 1`
+This is the main script; once installed in an activated conda environment as detailed above, it can be called from anywhere with `trepogeno --argument 1`
 
 ## create_typing_scheme
 The `deprecated/old_create_typing_scheme` subdirectory contains scripts relating to creating a typing scheme through use of rPinecone, a VCF, and a reference.
@@ -132,7 +132,7 @@ Lineage Calling
     A path to the directory for mykrobe to save its JSON files after calling a lineage. These will be named based on the ID supplied in the manifest, e.g. SRR567232.json
 
 --seq_manifest (required, unless using --read1)
-    A manifest of Sample ID and sequences, the heading should be ID,Read1,Read2. If you are not using paired-end fastqs and only have one read, leave a trailing comma, e.g. 'ReadID,/fastq/ReadID1.fastq,'
+    A 3-column CSV of Sample ID, path to read 1 and path to read 2, with header. If using single-end reads, leave a trailing comma, e.g. 'ReadID,/fastq/ReadID1.fastq,'
 
 --read1 (required, unless using --seq_manifest)
     Path to a fastq file to call a single sample directly, instead of via a manifest. Provide either --seq_manifest or --read1, not both.
