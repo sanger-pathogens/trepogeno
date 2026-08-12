@@ -11,6 +11,8 @@ Trepogeno wraps around and builds upon the tool [Mykrobe](https://github.com/Myk
 
 ## Installation
 ### From source code
+Note: this requires a way of creating an environment (e.g. conda, mamba) and a way to compile C (for MacOS/Ubuntu: clang or gcc and make,Ubuntu will further require zlib1g-dev).
+
 First clone the repository and it's Mykrobe submodule:
 ```
 git clone --recurse-submodules https://github.com/sanger-pathogens/trepogeno.git
