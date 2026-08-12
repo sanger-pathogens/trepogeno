@@ -5,25 +5,26 @@
   </picture>
 </p>
 
-# Trepogeno
+Trepogeno wraps around and builds upon the tool [Mykrobe](https://github.com/Mykrobe-tools/mykrobe) to facilitate lineage calling of *Treponema pallidum* strains. It can be installed as per the below instructions.
 
-This repo contains scripts that wrap around mykrobe for the lineage calling of *Treponema pallidum* strains.
-The tool, named trepogeno, can be installed as a system-wide package with the below instructions:
+[[TOC]]
 
-To set up the tool you must first:
+## Installation
+### From source code
+First clone the repository and it's Mykrobe submodule:
 ```
 git clone --recurse-submodules https://github.com/sanger-pathogens/trepogeno.git
 cd trepogeno/trepogeno
 ```
 
-Create a conda environment with python 3.8 and install trepogeno into it:
+Create an environment with Python 3.8 and install the dependencies defined in the pyproject.toml into it, for example with `conda`:
 ```
 conda create -n trepogeno python=3.8
 conda activate trepogeno
 pip3 install -e .
 ```
 
-Next, to ensure the mccortex binaries for mykrobe compile correctly:
+Next, to ensure the McCortex binaries for Mykrobe compile correctly clone from the `geno_kmer_count` branch as below:
 
 ```
 cd src/trepogeno/mykrobe
@@ -33,22 +34,22 @@ make
 cp bin/mccortex31 ../src/mykrobe/cortex
 ```
 
-Confirm the install worked:
+The trepogeno command should now be executable from anywhere, as long as the environment the dependencies are installed into is _activated_. You may check the installation by the help message:
 ```
 trepogeno --help
 ```
 
-## trepogeno
-This is the main script; once installed in an activated conda environment as detailed above, it can be called from anywhere with `trepogeno --argument 1`
-
-## create_typing_scheme
+## Usage
+### Create typing scheme (deprecated)
 The `deprecated/old_create_typing_scheme` subdirectory contains scripts relating to creating a typing scheme through use of rPinecone, a VCF, and a reference.
 These scripts are deprecated and not used in normal execution of the tool.
 
-## Create probe and lineage files
-To create a probe and lineage file, which is required for lineage calling, you need a typing scheme and genomic reference.
-For more information on creating a typing scheme, refer to the typing scheme rule book in the trepogeno directory (trepogeno/README.md).
+### Create probe and lineage files
+To create a probe and lineage file, required for lineage calling, you need a typing scheme and genomic reference.
+For more information on creating a typing scheme, refer to the [Typing Scheme Guide](./docs/typing_scheme_guide.md).
 
+
+Example command:
 ```
 trepogeno \
 --json_directory files/json_outputs \
@@ -57,10 +58,14 @@ trepogeno \
 --probe_prefix files/probes/custom_probe_name \
 --make_probes
 ```
+Expected outputs:
+- custom_typing.fa
+- custom_typing.json
 
-## Lineage calling
-You need the lineage and probe files made by mykrobe, and either a manifest containing paths to the reads you want called, or a single --read1/--read2 pair.
+### Lineage calling
+You will need the lineage and probe files made by Mykrobe, and either a manifest containing paths to the reads you want called, or a single --read1/--read2 pair.
 
+Example commands:
 ```
 trepogeno \
 --json_directory files/json_outputs \
@@ -80,8 +85,11 @@ trepogeno \
 --lineage_call
 ```
 
-## Process and summarise the mykrobe json outputs
-You need to supply the path to the directory containing the mykrobe output JSON files.
+Expected outputs:
+- sample.json (one per sample)
+
+### Process and summarise the Mykrobe outputs
+You need to supply the path to the directory containing the Mykrobe output JSON files.
 
 ```
 trepogeno \
@@ -89,7 +97,7 @@ trepogeno \
 --tabulate_jsons
 ```
 
-## Example full run execution
+### Example full run execution
 
 ```
 trepogeno \
@@ -103,7 +111,7 @@ trepogeno \
 --lineage_call
 ```
 
-## All parameters
+## Parameters
 
 ```
 Make Probes
@@ -155,7 +163,5 @@ Json Processing
     Supply a path to the directory containing mykrobe summary JSON files; these should be in the format mykrobe uses when `--report_all_calls` is used in mykrobe (the default if you only use trepogeno)
 ```
 
-
-
-### Tool Overview
-![Trepogeno_pipline](images_examples/pipeline-flow.png)
+### Schematic Overview
+![Trepogeno_pipline](assets/pipeline-flow.png)
