@@ -5,15 +5,16 @@
   </picture>
 </p>
 
-Typing scheme rule book.
+# Typing Scheme Rule Book
 
-A required input when performing custom lineage calling is a typing scheme, which mykrobe sometimes refers to as a reference coordinate file.
-This typing scheme is used to define which alleles at which bases define which lineages.
-Mykrobe takes this scheme and for each SNP generates a kmer probe and an entry in a json which it uses to make calls and look up which lineage that call belongs to.
+A required input when performing custom lineage calling is a typing scheme, also known as a reference coordinate file in Mykrobe documentation.
 
-Mykrobe has some very specific rules when it comes to designing a typing scheme which can cause some difficulties.
+This typing scheme is used to define which alleles at which bases define specific lineages. For each SNP in the typing scheme, Mykrobe generates a kmer probe and an entry in a JSON file which it uses to make calls and look up which lineage that call belongs to.
 
-A normal typing scheme will be a tsv structured like this without any headings:
+Your input typing scheme file must comply with a strict format imposed by Mykrobe.
+
+## Rule 1 - Stick to the format
+This will be a tab-separated file (TSV) without any headings, for example:
 
 ```
 ref	6442	A	G	DNA	TPA.2
@@ -28,25 +29,32 @@ ref	6740	A	G	DNA	*TPA.1.6
 5. The fifth column must be DNA, mykrobe can also define lineages by amino acid changes within genes, this isn't used here. 
 6. The sixth column is the lineage in which the given SNP is segregating for
 
-The below line therefore states that the 6654th base is a T in the reference and a C in all members of TPE lineage    
-`ref	6654	T	C	DNA	TPE`
+The below line therefore states that the 6654th base is a T in the reference and a C in all members of TPE lineage.
+```
+ref	6654	T	C	DNA	TPE
+```
 
-A * must be used for lineages in which the reference genome belongs, as can be seen in the above example.
-Normally mykrobe assumes a lineage is defined by the presence of the alternative allele.
-The * tells mykrobe the lineage is instead defined by the presence of the reference allele.
+## Rule 2 - Mark the reference-defined lineages
 
-Additionally, you cannot have a SNP at a base discriminate for multiple diverging lineages.
-For example, this is an invalid scheme:
+An asterisk (*) must be used for lineages in which the reference genome belongs, as can be seen in the below example.
+```
+ref	6740	A	G	DNA	*TPA.1.6
+```
+Normally, Mykrobe assumes a lineage is defined by the presence of the alternative allele.
+The asterisk tells mykrobe the lineage is instead defined by the presence of the reference allele.
+
+## Rule 3 - Each SNP position must only define a single lineage
+You must not have a SNP at a base position discriminate for multiple diverging lineages. For example, this is an invalid scheme:
 ```
 ref	4800	C	A	DNA	TPA.2.7
 ref	4800	C	A	DNA	TPA.2.9
 ```
 
-Mykrobe creates a key value pair from the base and change like this C4800A:TPA.2.9. It uses this to match the probes to lineages.
-This method doesn't natively support multiple of the same key.
-Having duplicates of the same base position like above will cause mykrobe to still only create one key while the others will be discarded.
-Importantly, if that change at that base is actually discriminatory for both diverging lineages, it will only ever call one of them from the resulting probe.
+This is because Mykrobe creates a key:value pair from the base and change like this `C4800A:TPA.2.9`. It uses this to match the probes to lineages. This method doesn't natively support multiple of the same key. Instead of taking two identical keys, only one of the two key:value pairs will be created.
 
+Importantly, if that change at that base is actually discriminatory for both diverging lineages, it will only ever call **one of them** from the resulting probe.
+
+## Rule 4 - Provide SNPs for every hierachical level
 Finally you must ensure that your scheme has defined SNPs for every level of your hierarchy.
 If you wanted to define SNPs for the lineages TPA.2.7 and TPE.3.1 like so:
 ```
@@ -65,4 +73,4 @@ ref	88317	T	C	DNA	TPE.3
 ref	90092	G	T	DNA	TPE
 ```
 
-If mykrobe is unable to find at least some support for all three levels of this hierarchy it won't call it. 
+If Mykrobe is unable to find at least some support for all three levels of this hierarchy, it won't call it.
