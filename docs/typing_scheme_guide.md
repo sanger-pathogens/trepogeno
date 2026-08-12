@@ -5,7 +5,7 @@
   </picture>
 </p>
 
-# Typing Scheme Rule Book
+# Typing Scheme Guide
 
 A required input when performing custom lineage calling is a typing scheme, also known as a reference coordinate file in Mykrobe documentation.
 
