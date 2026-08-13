@@ -2,20 +2,21 @@
 name = "trepogeno"
 version = "0.1.0"
 description = "Wrapper tool for streamlining lineage calling on bulk sets of user fastq data"
-authors = [{name = "Jason Beard", email = "jasonthomasbeard@gmail.com"}]
+authors = [
+  {name = "Jason Beard", email = "jasonthomasbeard@gmail.com"}
+]
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
-    "pandas >=1.5",
-    "mongoengine",
-    "anytree>=2.8.0",
-"Biopython>=1.79",
-"PyVCF3>=1.0.3",
-"requests>=2.27.1",
-"mongoengine>=0.24.1",
-"cython>=0.29.28",
-"numpy>=1.22.0",
+  "pandas >=1.5",
+  "anytree>=2.8.0",
+  "Biopython>=1.79",
+  "PyVCF3>=1.0.3",
+  "requests>=2.27.1",
+  "mongoengine>=0.24.1",
+  "cython>=0.29.28",
+  "numpy>=1.22.0",
 ]
 
 [project.scripts]
-trepogeno = "nextstrain.trepogeno:main"
+trepogeno = "trepogeno.trepogeno:main"

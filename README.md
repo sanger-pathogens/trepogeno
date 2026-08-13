@@ -1,88 +1,139 @@
-This repo contains scripts that intend to wrap around mykrobe for the lineage calling of treponema strains.
-The tool, currently nicknamed trepogeno, can be installed as a system wide package with the below instructions:
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/trepogeno-logo-dark.svg">
+    <img alt="trepogeno" src="assets/trepogeno-logo-light.svg" width="420">
+  </picture>
+</p>
 
-To set up functionality you must first: 
-1. git clone --recursive https://gitlab.internal.sanger.ac.uk/sanger-pathogens/nextstrain.git
-2. cd nextstrain/trepogeno/
-3. pip3 install -e . 
+Trepogeno wraps around and builds upon the tool [Mykrobe](https://github.com/Mykrobe-tools/mykrobe) to facilitate lineage calling of *Treponema pallidum* strains. It can be installed as per the below instructions.
 
-Next to ensure mccortex binaries for mykrobe complie correctly
+## Installation
+### From source code
+Note: this requires a way of creating an environment (e.g. conda, mamba) and a way to compile C (for MacOS/Ubuntu: clang or gcc and make,Ubuntu will further require zlib1g-dev).
 
-1. cd mykrobe
-2. git clone --recursive -b geno_kmer_count https://github.com/Mykrobe-tools/mccortex mccortex
-3. cd mccortex
-4. make
-5. cp bin/mccortex31 ../src/mykrobe/cortex
+First clone the repository and it's Mykrobe submodule:
+```
+git clone --recurse-submodules https://github.com/sanger-pathogens/trepogeno.git
+cd trepogeno/trepogeno
+```
 
-## Trepogeno.py
-This is the main script, once installed system wide as detailed above can be called anywhere with `trepogeno --agrument 1` 
+Create an environment with Python 3.8 and install the dependencies defined in the pyproject.toml into it, for example with `conda`:
+```
+conda create -n trepogeno python=3.8
+conda activate trepogeno
+pip3 install -e .
+```
 
-## create_typing_scheme
-This subdirectory contains scripts relating to creating a typing scheme through use of Rpinecone, a vcf, and a reference.
-These scripts are deprectated and not used in normal execution of the tool.
+Next, to ensure the McCortex binaries for Mykrobe compile correctly clone from the `geno_kmer_count` branch as below:
 
-## Create probes lineage files
-To create a probe and lineage file, which is requried for lineage calling, you need a typing scheme and genomic reference.
-For more information of creating a typing scheme refer to the typing scheme rule book in the trepogeno directory.
+```
+cd src/trepogeno/mykrobe
+git clone --recurse-submodules -b geno_kmer_count https://github.com/Mykrobe-tools/mccortex mccortex
+cd mccortex
+make
+cp bin/mccortex31 ../src/mykrobe/cortex
+```
 
-trepogeno \\    
---json_directory files/json_outputs \\  
---type_scheme files/Tpallidum.SNP.table_hierarchies_2025-05-14.tsv \\   
---genomic_reference files/reference/nc_021508.fasta \\  
---probe_and_lineage_dir files/probes \\     
---make_probes \\    
---probe_lineage_name custom_probe_name
+The trepogeno command should now be executable from anywhere, as long as the environment the dependencies are installed into is _activated_. You may check the installation by the help message:
+```
+trepogeno --help
+```
 
-## Lineage calling
-Required are the lineage and probe files made by mykrobe, a genomic reference, and a manifest containing paths to the reads you want called.
+## Usage
+### Create typing scheme (deprecated)
+The `deprecated/old_create_typing_scheme` subdirectory contains scripts relating to creating a typing scheme through use of rPinecone, a VCF, and a reference.
+These scripts are deprecated and not used in normal execution of the tool.
 
-trepogeno \\    
---json_directory files/json_outputs \\  
---genomic_reference files/reference/nc_021508.fasta \\  
---probe_and_lineage_dir files/probes \\     
---seq_manifest /data/nexstrain/manifest.csv \\  
---lineage_call \\   
---probe_lineage_name custom_probe_name
+### Create probe and lineage files
+To create a probe and lineage file, required for lineage calling, you need a typing scheme and genomic reference.
+For more information on creating a typing scheme, refer to the [Typing Scheme Guide](./docs/typing_scheme_guide.md).
 
 
-## Process and summarise the mykrobe json outputs
-Required is the path to the directory containing the mykrobe output jsons.
+Example command:
+```
+trepogeno \
+--json_directory files/json_outputs \
+--type_scheme data/2026-05-12__07_masked_snpsAF09DP5_n10.diagnostic_SNPs_Mykrobe_2026-08-04_b.tsv \
+--genomic_reference data/Treponema_pallidum_subsp_pallidum_SS14_v2.fa \
+--probe_prefix files/probes/custom_probe_name \
+--make_probes
+```
+Expected outputs:
+- custom_typing.fa
+- custom_typing.json
 
-trepogeno \\    
---json_directory files/json_outputs \\  
---tabulate_jsons
+### Lineage calling
+You will need the lineage and probe files made by Mykrobe, and either a manifest containing paths to the reads you want called, or a single --read1/--read2 pair.
 
-## Example full run execution
+Example manifest with two query inputs:
+```
+ID,R1,R2
+sampleA,/path/to/sampleA_1.fastq.gz,/path/to/sampleA_2.fastq.gz
+sampleB,/path/to/sampleB_1.fastq.gz,/path/to/sampleB_2.fastq.gz
+```
 
-trepogeno \\    
---json_directory files/json_outputs \\
---type_scheme files/Tpallidum.SNP.table.tsv \\  
---genomic_reference files/reference/nc_021508.fasta \\  
---probe_and_lineage_dir files/probes \\ 
---make_probes \\    
---seq_manifest /data/nexstrain/manifest.csv \\  
---probe_lineage_name custom_probes \\   
---tabulate_jsons \\ 
+Example commands:
+```
+trepogeno \
+--json_directory files/json_outputs \
+--probe_prefix files/probes/custom_probe_name \
+--seq_manifest /data/nexstrain/manifest.csv \
 --lineage_call
+```
 
-## All paramaters 
+Or, to call a single sample directly without a manifest:
+```
+trepogeno \
+--json_directory files/json_outputs \
+--probe_prefix files/probes/custom_probe_name \
+--read1 /data/nexstrain/sample_1.fastq.gz \
+--read2 /data/nexstrain/sample_2.fastq.gz \
+--sample_id sample_name \
+--lineage_call
+```
 
+Expected outputs:
+- sample.json (one per sample)
+
+### Process and summarise the Mykrobe outputs
+You need to supply the path to the directory containing the Mykrobe output JSON files.
+
+```
+trepogeno \
+--json_directory files/json_outputs \
+--tabulate_jsons
+```
+
+### Example full run execution
+
+```
+trepogeno \
+--json_directory files/json_outputs \
+--type_scheme data/2026-05-12__07_masked_snpsAF09DP5_n10.diagnostic_SNPs_Mykrobe_2026-08-04_b.tsv \
+--genomic_reference data/Treponema_pallidum_subsp_pallidum_SS14_v2.fa \
+--probe_prefix files/probes/custom_probes \
+--make_probes \
+--seq_manifest /data/nexstrain/manifest.csv \
+--tabulate_jsons \
+--lineage_call
+```
+
+## Parameters
+
+```
 Make Probes
 -----------
 --make_probes   
     Used to indicate you wish to generate a new set of probes during the work flow
 
 --type_scheme   
-    Path to the file that maps snps to specific genomic coordiantes to lineages, to learn more review mykrobe custom lineage calling documentation.
+    Path to the file that maps SNPs to specific genomic coordinates and lineages, to learn more review mykrobe's custom lineage calling documentation.
 
 --genomic_reference 
-    A fasta file that acts as the genomic reference, must match the reference in the type scheme
+    A FASTA file that acts as the genomic reference; must match the reference used in the typing scheme
 
---probe_and_lineage_dir 
-    This is the directory in which to save the probe and lineage file during probe creation
-
---probe_lineage_name    
-    what to call the custom probe.fa file and lineage.json when writing an output. This changes the prefix, if you supply custom the output will be custom.fa & custom.json. Ommit this flag and it will name them probe.fa and lienage.json.
+--probe_prefix
+    Path prefix (without extension) for the probe and lineage files to write, e.g. files/probes/custom writes files/probes/custom.fa and files/probes/custom.json. Defaults to ./probes
 
 --kmer_size 
     what kmer size to use when creating the probes. defaults to 21
@@ -93,22 +144,22 @@ Lineage Calling
     Used to indicate you wish to execute the lineage calling workflow
 
 --json_directory    
-    A path to the directory for mykrobe to save its json files after calling a lineage. These will be named based on the ID supplied in the manifest e.g SRR567232.json
+    A path to the directory for mykrobe to save its JSON files after calling a lineage. These will be named based on the ID supplied in the manifest, e.g. SRR567232.json
 
---seq_manifest  
-    A manifest of Sample ID and sequences, the heading should be ID,Read1,Read2. If you are not using paired end fastqs and only have one read leave a trailing , e.g. 'ReadID,/fastq/ReadID1.fastq,'
+--seq_manifest (required, unless using --read1)
+    A 3-column comma-separated value (CSV) table file of Sample ID, path to read 1 and path to read 2, with header. If using single-end reads, leave a trailing comma, e.g. 'ReadID,/fastq/ReadID1.fastq,'
 
---genomic_reference 
-    Provide a path to a fasta file that acts as the genomic reference, must match the reference in the type scheme
+--read1 (required, unless using --seq_manifest)
+    Path to a fastq file to call a single sample directly, instead of via a manifest. Provide either --seq_manifest or --read1, not both.
 
---probe_and_lineage_dir 
-    This is the directory in which probe.fa and lineage.json file are located
+--read2 (optional)
+    Path to the second fastq of a pair, if using --read1. Omit for single-end reads.
 
---probe_lineage_name    
-    If you wish to use custom probe and lineage files this flag lets you set the name. they must either be the same name prefix e.g custom.fa and custom.json or else ommit this flag and it will instead look for a probe.fa and lineage.json file in the directory you specify. 
+--sample_id (required if using --read1)
+    Sample ID to use when calling a single sample directly with --read1/--read2.
 
---kmer_size 
-    what kmer size to use when lineage calling, must match what was used when creating probes, default 21
+--probe_prefix
+    Path prefix (without extension) of the probe.fa and lineage.json files to read, e.g. files/probes/custom reads files/probes/custom.fa and files/probes/custom.json. Defaults to ./probes. The kmer size used is read automatically from the probe file, so it does not need to be supplied separately.
 
 Json Processing
 -----------
@@ -116,9 +167,8 @@ Json Processing
     Used to indicate you wish to execute the workflow to tabulate the output from mykrobe
 
 --json_directory    
-    Supply a path to the directory containing mykrobe summary json's, theses should be in the format mykrobe uses when `--report_all_calls` is used in mykrobe (The default if you only use trepogeno)
+    Supply a path to the directory containing mykrobe summary JSON files; these should be in the format mykrobe uses when `--report_all_calls` is used in mykrobe (the default if you only use trepogeno)
+```
 
-
-
-### Tool Overview
-![Trepogeno_pipline](images_examples/pipeline-flow.png)
+### Schematic Overview
+![Trepogeno_pipline](assets/pipeline-flow.png)
