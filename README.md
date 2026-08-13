@@ -15,7 +15,7 @@ Although molecular typing tools exist for *T. pallidum* (e.g. Multilocus sequenc
 ### Hierarchical SNP types
 As part of the *T. pallidum* NextStrain project, we used an initial dataset of 2313 genomes to delineate clusters at three hierarchical levels using [fastBAPS](https://github.com/gtonkinhill/fastbaps).
 
-- Level 1 corresponds to the *T. pallidum* subspecies *pallidum* (TPA), *pertenue* (TPE), and *endemicum* (TEN). An additional group of genomes corresponding to outliers recovered from ancient DNA was left unclassified as (Other).
+- Level 1 corresponds to the *T. pallidum* subspecies *pallidum* (TPA), *pertenue* (TPE), and *endemicum* (TEN). An additional group of genomes corresponding to outliers recovered from ancient DNA was left unclassified (Other).
 
 - Level 2 corresponds to deep branches in the phylogeny, e.g. SS14 (TPA-1) and Nichols (TPA-2) lineages within TPA. Similarly deep branching lineages were observed within TPE. Numerical designations are applied to each group (largest group at each hierarchical level first).
 
