@@ -142,7 +142,7 @@ Lineage Calling
     A path to the directory for mykrobe to save its JSON files after calling a lineage. These will be named based on the ID supplied in the manifest, e.g. SRR567232.json
 
 --seq_manifest (required, unless using --read1)
-    A 3-column CSV of Sample ID, path to read 1 and path to read 2, with header. If using single-end reads, leave a trailing comma, e.g. 'ReadID,/fastq/ReadID1.fastq,'
+    A 3-column comma-separated value (CSV) table file of Sample ID, path to read 1 and path to read 2, with header. If using single-end reads, leave a trailing comma, e.g. 'ReadID,/fastq/ReadID1.fastq,'
 
 --read1 (required, unless using --seq_manifest)
     Path to a fastq file to call a single sample directly, instead of via a manifest. Provide either --seq_manifest or --read1, not both.
