@@ -7,8 +7,6 @@
 
 Trepogeno wraps around and builds upon the tool [Mykrobe](https://github.com/Mykrobe-tools/mykrobe) to facilitate lineage calling of *Treponema pallidum* strains. It can be installed as per the below instructions.
 
-[[TOC]]
-
 ## Installation
 ### From source code
 Note: this requires a way of creating an environment (e.g. conda, mamba) and a way to compile C (for MacOS/Ubuntu: clang or gcc and make,Ubuntu will further require zlib1g-dev).
