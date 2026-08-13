@@ -67,6 +67,13 @@ Expected outputs:
 ### Lineage calling
 You will need the lineage and probe files made by Mykrobe, and either a manifest containing paths to the reads you want called, or a single --read1/--read2 pair.
 
+Example manifest with two query inputs:
+```
+ID,R1,R2
+sampleA,/path/to/sampleA_1.fastq.gz,/path/to/sampleA_2.fastq.gz
+sampleB,/path/to/sampleB_1.fastq.gz,/path/to/sampleB_2.fastq.gz
+```
+
 Example commands:
 ```
 trepogeno \
