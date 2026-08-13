@@ -1,0 +1,3 @@
+sample,called_lineage,n_called_lineages,all_called_lineages,primary_path_concordance,flag_reason,sublineage_resolved,path_support,node_scores,terminal_use_ref_allele,terminal_n_markers,terminal_n_concordant,terminal_n_het,terminal_n_discordant,terminal_node_concordance,terminal_mean_conf,terminal_min_conf,terminal_conf_qual,genome_depth
+15169_6#65.Treponema.ds2500000-reads,TPA.1.6,1,TPA.1.6(1.0),1.0,,yes,3/3,TPA=1;TPA.1=1;TPA.1.6=1,False,1,1,0,0,1.0,24524,24524,high,226
+47323_2#12.Treponema.ds2500000-reads,TPA.1.6,1,TPA.1.6(1.0),1.0,,yes,3/3,TPA=1;TPA.1=1;TPA.1.6=1,False,1,1,0,0,1.0,87315,87315,high,457

@@ -8,7 +8,7 @@
 `trepogeno` is a molecular typing scheme and tool for classifying *Treponema pallidum* genomic data.
 
 ## Overview
-Most genomic data available for *Treponema pallidum* was generated directly from clinical specimens using hybrid capture enriched metagenomic sequencing methods. Sequencing depth is typically of low and uneven coverage, such that standard assembly methods often produce low quality assemblies. 
+Most genomic data available for *Treponema pallidum* was generated directly from clinical specimens using hybrid capture enriched metagenomic sequencing methods. Sequencing depth is typically low and uneven, such that standard assembly methods often produce low quality assemblies. 
 
 Although molecular typing tools exist for *T. pallidum* (e.g. Multilocus sequence typing schemes; MLST), the clusters assigned are not always consistent with whole genome phylogeny. Moreover, typing methods such as MLST require recovery of complete locus sequences which is often not possible from *T. pallidum* assemblies (which may contain contig breaks or low quality base calls within target regions, even if the base present is the reference allele). A hierarchical SNP based typing scheme (based on the [GenoTyphi](https://github.com/typhoidgenomics/genotyphi) model) that requires only specific SNPs to be detected may therefore enable more consistent and robust typing from genomic data. 
 
@@ -44,9 +44,9 @@ After defining hierarchical lineages, we identified highly discriminatory SNPs d
 
 ## Installation
 ### From source code
-Note: this requires a way of creating an environment (e.g. conda, mamba) and a way to compile C (for MacOS/Ubuntu: clang or gcc and make, Ubuntu will further require zlib1g-dev).
+Note: this requires a way of creating an environment (e.g. conda, mamba) and a way to compile C (for macOS/Ubuntu: clang or gcc and make, Ubuntu will further require zlib1g-dev).
 
-First clone the repository and it's Mykrobe submodule:
+First clone the repository and its Mykrobe submodule:
 ```
 git clone --recurse-submodules https://github.com/sanger-pathogens/trepogeno.git
 cd trepogeno/trepogeno
@@ -103,8 +103,8 @@ You will need the lineage and probe files made by Mykrobe, and either a manifest
 Example manifest with two query inputs:
 ```
 ID,R1,R2
-sampleA,/path/to/sampleA_1.fastq.gz,/path/to/sampleA_2.fastq.gz
-sampleB,/path/to/sampleB_1.fastq.gz,/path/to/sampleB_2.fastq.gz
+sampleA,/data/sampleA_1.fastq.gz,/data/sampleA_2.fastq.gz
+sampleB,/data/sampleB_1.fastq.gz,/data/sampleB_2.fastq.gz
 ```
 
 Example commands:
@@ -112,7 +112,7 @@ Example commands:
 trepogeno \
 --json_directory files/json_outputs \
 --probe_prefix files/probes/custom_probe_name \
---seq_manifest /data/nexstrain/manifest.csv \
+--seq_manifest /data/manifest.csv \
 --lineage_call
 ```
 
@@ -121,8 +121,8 @@ Or, to call a single sample directly without a manifest:
 trepogeno \
 --json_directory files/json_outputs \
 --probe_prefix files/probes/custom_probe_name \
---read1 /data/nexstrain/sample_1.fastq.gz \
---read2 /data/nexstrain/sample_2.fastq.gz \
+--read1 /data/sample_1.fastq.gz \
+--read2 /data/sample_2.fastq.gz \
 --sample_id sample_name \
 --lineage_call
 ```
@@ -148,7 +148,7 @@ trepogeno \
 --genomic_reference data/Treponema_pallidum_subsp_pallidum_SS14_v2.fa \
 --probe_prefix files/probes/custom_probes \
 --make_probes \
---seq_manifest /data/nexstrain/manifest.csv \
+--seq_manifest /data/manifest.csv \
 --tabulate_jsons \
 --lineage_call
 ```
@@ -207,3 +207,20 @@ Json Processing
 
 ### Schematic Overview
 ![Trepogeno_pipline](assets/pipeline-flow.png)
+
+<br>
+
+## Results
+The JSON files contain detailed information about each SNP called for each sample tested. When using `--tabulate_jsons`, several summary files are produced which summarise findings across all JSON files provided. 
+
+`lineage_call_summary.csv`
+
+| sample | called_lineage | n_called_lineages | all_called_lineages | primary_path_concordance | flag_reason | sublineage_resolved | path_support | node_scores | terminal_use_ref_allele | terminal_n_markers | terminal_n_concordant | terminal_n_het | terminal_n_discordant | terminal_node_concordance | terminal_mean_conf | terminal_min_conf | terminal_conf_qual | genome_depth |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| ERR5210584 | TPA.1.6 | 1 | TPA.1.6(1.0) | 1.0 | | yes | 3/3 | TPA=1;TPA.1=1;TPA.1.6=1 | False | 1 | 1 | 0 | 0 | 1.0 | 24524 | 24524 | high | 226 |
+| ERR13170795 | TPA.1.6 | 1 | TPA.1.6(1.0) | 1.0 | | yes | 3/3 | TPA=1;TPA.1=1;TPA.1.6=1 | False | 1 | 1 | 0 | 0 | 1.0 | 87315 | 87315 | high | 457 |
+
+### Interpreting the output
+Both samples above were called as **TPA.1.6** with full confidence: `primary_path_concordance` is `1.0` (every marker along the called path was concordant with the expected allele), `sublineage_resolved` is `yes` (the call reached a genuine terminal leaf rather than stopping at an internal node with an unresolved sub-lineage), and `terminal_conf_qual` is `high`, backed by strong per-marker evidence (`terminal_min_conf` in the tens of thousands). `flag_reason` is empty for both (low coverage or anomalous SNPs would lead to a flag here).
+
+A weaker or more ambiguous call would look different: `flag_reason` may show `low_node_concordance` (the terminal call rests on a minority of its markers, e.g. via a shared/homoplasic SNP) or `low_conf` (weak overall evidence, e.g. a single marker at low sequencing depth). For ambiguous or uncertain calls, `called_lineage` is prefixed with `*`. `all_called_lineages` lists every lineage mykrobe found any support for, each with its own `path_concordance` score in parentheses — this may be useful for spotting cases where a sample matches more than one path.
