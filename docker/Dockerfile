@@ -4,7 +4,7 @@ FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv
 FROM ubuntu:24.04
 
 ARG TREPOGENO_URL="https://github.com/sanger-pathogens/trepogeno.git"
-# TODO: ARG TREPOGENO_TAG=""
+ARG TREPOGENO_TAG="v0.1.0"
 ARG TREPOGENO_PATH="/opt/trepogeno"
 
 ARG MCCORTEX_URL="https://github.com/Mykrobe-tools/mccortex.git"
@@ -35,7 +35,7 @@ RUN git clone -q --depth 1 --recurse-submodules --branch ${TREPOGENO_TAG} ${TREP
     uv venv --python ${PYTHON_VERSION} .venv && \
     uv pip install --python .venv -e . && \
     rm -rf .git && \
-    cd nextstrain/mykrobe && \
+    cd src/trepogeno/mykrobe && \
     git clone -q --depth 1 --recurse-submodules --branch ${MCCORTEX_TAG} ${MCCORTEX_URL} mccortex && \
     cd mccortex && \
     make -s && \
