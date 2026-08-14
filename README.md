@@ -19,7 +19,7 @@ As part of the *T. pallidum* NextStrain project, we used an initial dataset of 2
 
 - Level 2 corresponds to deep branches in the phylogeny, e.g. SS14 (TPA-1) and Nichols (TPA-2) lineages within TPA. Similarly deep branching lineages were observed within TPE. Numerical designations are applied to each group (largest group at each hierarchical level first).
 
-- Level 3 corresponds to sublineages closer to the tips. Since these were defined using BAPS, these are not uniformly diverse, and represent statistically robust genetic groups but not necessarily epidemiologically meaningful ones. Note that these clusters are generally more genetically diverse than those defined using SNP thresholds (e.g. from [Beale et al, 2021](https://www.nature.com/articles/s41564-021-01000-z)).
+- Level 3 corresponds to sublineages closer to the tips, and numbering is nested within higher levels (e.g. TPA-1-1, TPA-1-2). Since these were defined using BAPS, they are not uniformly diverse, and represent statistically robust genetic groups but not necessarily epidemiologically meaningful ones. Note that these clusters are generally more genetically diverse than those defined using SNP thresholds (e.g. from [Beale et al, 2021](https://www.nature.com/articles/s41564-021-01000-z)).
 
 ![Figure_1_full_phylogeny](assets/p.full.pyjar.tree_plot_lineages_2026-08-13.svg)
 
