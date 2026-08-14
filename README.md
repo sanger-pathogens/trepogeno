@@ -227,7 +227,7 @@ A weaker or more ambiguous call would look different: `flag_reason` may show `lo
 
 
 ## Scheme Updates
-We anticipate that as new genomes are published, new sublineages may need to be designated. Substantially divergent phylogenetic outliers will be identified through community maintenance of the Nextstrain build, and will be discussed before designated a new lineage or sublineage. Updated schemes will be made available. The latest can be downloaded [here](https://raw.githubusercontent.com/sanger-pathogens/trepogeno/main/data/scheme_updates/Trepogeno_scheme_build_2026-08-04.tar.gz).
+We anticipate that as new genomes are published, new sublineages may need to be designated. Substantially divergent phylogenetic outliers will be identified through community maintenance of the Nextstrain build, and will be discussed before designating a new lineage or sublineage. Updated schemes will be devised and made [available](data/scheme_updates/) - the latest scheme build can be downloaded [here](https://raw.githubusercontent.com/sanger-pathogens/trepogeno/main/data/scheme_updates/Trepogeno_scheme_build_2026-08-04.tar.gz).
 
 
 ## Acknowledgements
