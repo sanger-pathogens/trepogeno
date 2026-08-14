@@ -3,7 +3,8 @@ name = "trepogeno"
 version = "0.1.0"
 description = "Wrapper tool for streamlining lineage calling on bulk sets of user fastq data"
 authors = [
-  {name = "Jason Beard", email = "jasonthomasbeard@gmail.com"}
+  {name = "Jason Beard", email = "jasonthomasbeard@gmail.com"},
+  {name = "Mat Beale", email = "mathew.beale@sanger.ac.uk"}
 ]
 readme = "README.md"
 requires-python = ">=3.8"

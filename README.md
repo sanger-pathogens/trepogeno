@@ -5,7 +5,7 @@
   </picture>
 </p>
 
-`trepogeno` is a molecular typing scheme and tool for classifying *Treponema pallidum* genomic data.
+`trepogeno` is a molecular typing scheme and tool for classifying *Treponema pallidum* genomic data directly from sequencing reads.
 
 ## Overview
 Most genomic data available for *Treponema pallidum* was generated directly from clinical specimens using hybrid capture enriched metagenomic sequencing methods. Sequencing depth is typically low and uneven, such that standard assembly methods often produce low quality assemblies. 
