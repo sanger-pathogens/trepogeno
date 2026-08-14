@@ -227,12 +227,12 @@ A weaker or more ambiguous call would look different: `flag_reason` may show `lo
 
 
 ## Scheme Updates
-We anticipate that as new genomes are published, new sublineages may need to be designated. Substantially divergent phylogenetic outliers will be identified through community maintenance of the Nextstrain build, and will be discussed before designating a new lineage or sublineage. Updated schemes will be devised and made [available](data/scheme_updates/) - the latest scheme build can be downloaded [here](https://raw.githubusercontent.com/sanger-pathogens/trepogeno/main/data/scheme_updates/Trepogeno_scheme_build_2026-08-04.tar.gz).
+We anticipate that as new genomes are published, new sublineages may need to be designated. Substantially divergent phylogenetic outliers will be identified through community maintenance of the Nextstrain build, and will be discussed before designating a new lineage or sublineage. Updated schemes will be devised and made available [here](https://github.com/sanger-pathogens/trepogeno/tree/main/data/scheme_updates) - the latest scheme build can be downloaded [here](https://raw.githubusercontent.com/sanger-pathogens/trepogeno/main/data/scheme_updates/Trepogeno_scheme_build_2026-08-04.tar.gz).
 
 
 ## Acknowledgements
 This project was heavily inspired by excellent work from the [GenoTyphi](https://github.com/typhoidgenomics/genotyphi) and [Mykrobe](https://github.com/Mykrobe-tools/mykrobe) teams and makes use of their code. The scheme was developed using data from the *T. pallidum* Nextstrain build.
 
-The project was developed by Mat Beale and the Wellcome Sanger Institute in collaboration with the *T. pallidum* Nextstrain project led by Nicole Lieberman at the University of Washington.
+The project was developed by Mat Beale and the PAM-Informatics team at the Wellcome Sanger Institute in collaboration with the *T. pallidum* Nextstrain project led by Nicole Lieberman at the University of Washington.
 
 This work was funded by the Gates Foundation (INV-072205) and Wellcome (206545/Z/17/Z). 
