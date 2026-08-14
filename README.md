@@ -43,6 +43,43 @@ After defining hierarchical lineages, we identified highly discriminatory SNPs d
 <br>
 
 ## Installation
+### Quickstart with Docker or Singularity (Recommended)
+**If your system has Docker** (to install see [Docker docs](https://docs.docker.com/desktop/))
+
+Pull the image (replace `latest` with a specific version tag, e.g. `vX.X.X`, for a reproducible install):
+```
+docker pull quay.io/sanger-pathogens/trepogeno:latest
+```
+Run a `trepogeno` command, mounting your current working directory (or replace `$(pwd)` with the top-level directory where your data is stored):
+```
+docker run --rm -v $(pwd):/data -w /data quay.io/sanger-pathogens/trepogeno:latest trepogeno <params>
+```
+> [!IMPORTANT]
+> You must supply only relative paths to your current working directory (or wherever you mounted in the above) in your `trepogeno` commands, the tool will not have access to your entire filesystem.
+
+> [!TIP]
+> To speed this up for repeated run you may wish to alias this in your `.bashrc` `.bash_profile` or whatever file runs on start up on your setup. Following this you can simply run `trepogeno <commands>` each time. Add the following line:
+>```
+>alias trepogeno='docker run --rm -v $(pwd):/data -w /data quay.io/sanger-pathogens/trepogeno:latest trepogeno'
+>```
+
+
+**If your system has Singularity/Apptainer** (to install see [Apptainer docs](https://apptainer.org/docs/admin/main/installation.html#)).
+
+Note: Whilst these are the same tool, different systems have named. If you are using a managed system check which name applies to your install. Replace 'singularity' in the example below with 'apptainer' as appropriate.
+Pull the image (replace TAG with your desired version `vX.X.X`)
+```
+singularity pull trepogeno_<TAG>.sif docker://quay.io/sanger-pathogens:<TAG>
+```
+Run directly with the pulled image:
+```
+singularity exec trepogeno_<TAG>.sif trepogeno --help
+singularity exec trepogeno_<TAG>.sif trepogeno <params>
+```
+> [!TIP]
+> Similarly to docker you may wish to alias the command to avoid typing out `singularity exec trepogeno_<TAG>.sif` each time (replace TAG and add the path to your .sif file):
+> `alias trepogeno='singularity exec /path/to/trepogeno_<TAG>.sif trepogeno'`
+
 ### From source code
 Note: this requires a way of creating an environment (e.g. conda, mamba) and a way to compile C (for macOS/Ubuntu: clang or gcc and make, Ubuntu will further require zlib1g-dev).
 
@@ -69,7 +106,7 @@ make
 cp bin/mccortex31 ../src/mykrobe/cortex
 ```
 
-The trepogeno command should now be executable from anywhere, as long as the environment the dependencies are installed into is _activated_. You may check the installation by the help message:
+The `trepogeno` command should now be executable from anywhere, as long as the environment the dependencies are installed into is _activated_. You may check the installation by the help message:
 ```
 trepogeno --help
 ```
