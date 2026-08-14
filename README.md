@@ -233,6 +233,6 @@ We anticipate that as new genomes are published, new sublineages may need to be 
 ## Acknowledgements
 This project was heavily inspired by excellent work from the [GenoTyphi](https://github.com/typhoidgenomics/genotyphi) and [Mykrobe](https://github.com/Mykrobe-tools/mykrobe) teams and makes use of their code. The scheme was developed using data from the *T. pallidum* Nextstrain build.
 
-The project was developed by Mat Beale and the PAM-Informatics team at the Wellcome Sanger Institute in collaboration with the *T. pallidum* Nextstrain project led by Nicole Lieberman at the University of Washington.
+The project was developed by [Mat Beale](https://www.sanger.ac.uk/person/beale-mathew/) and the [PAM-Informatics](https://www.sanger.ac.uk/group/parasites-and-microbes-informatics/) team at the [Wellcome Sanger Institute](https://www.sanger.ac.uk/programme/parasites-and-microbes/) in collaboration with the *T. pallidum* Nextstrain project led by [Nicole Lieberman](https://dlmp.uw.edu/faculty/lieberman-nicole) at the [University of Washington](https://www.washington.edu/).
 
-This work was funded by the Gates Foundation (INV-072205) and Wellcome (206545/Z/17/Z). 
+This work was funded by the [Gates Foundation](https://www.gatesfoundation.org/) (INV-072205) and [Wellcome](https://wellcome.org/) (206545/Z/17/Z). 
