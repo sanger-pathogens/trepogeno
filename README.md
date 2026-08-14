@@ -228,3 +228,11 @@ A weaker or more ambiguous call would look different: `flag_reason` may show `lo
 
 ## Scheme Updates
 We anticipate that as new genomes are published, new sublineages may need to be designated. Substantially divergent phylogenetic outliers will be identified through community maintenance of the Nextstrain build, and will be discussed before designated a new lineage or sublineage. Updated schemes will be made available. The latest can be downloaded [here](https://raw.githubusercontent.com/sanger-pathogens/trepogeno/main/data/scheme_updates/Trepogeno_scheme_build_2026-08-04.tar.gz).
+
+
+## Acknowledgements
+This project was heavily inspired by excellent work from the [GenoTyphi](https://github.com/typhoidgenomics/genotyphi) and [Mykrobe](https://github.com/Mykrobe-tools/mykrobe) teams and makes use of their code. The scheme was developed using data from the *T. pallidum* Nextstrain build.
+
+The project was developed by Mat Beale and the Wellcome Sanger Institute in collaboration with the *T. pallidum* Nextstrain project led by Nicole Lieberman at the University of Washington.
+
+This work was funded by the Gates Foundation (INV-072205) and Wellcome (206545/Z/17/Z). 
