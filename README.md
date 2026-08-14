@@ -247,14 +247,16 @@ A weaker or more ambiguous call would look different: `flag_reason` may show `lo
 | `terminal_conf_qual` | A qualitative band (`high` / `moderate` / `low`) derived from `terminal_min_conf`, for an at-a-glance read on evidence strength. |
 | `genome_depth` | The median expected k-mer depth across the genome (from mykrobe's `info.expected_depths`) — a general sequencing-depth indicator, not specific to the called lineage. |
 
+<br>
 
 ## Scheme Updates
 We anticipate that as new genomes are published, new sublineages may need to be designated. Substantially divergent phylogenetic outliers will be identified through community maintenance of the Nextstrain build, and will be discussed before designating a new lineage or sublineage. Updated schemes will be devised and made available [here](https://github.com/sanger-pathogens/trepogeno/tree/main/data/scheme_updates) - the latest scheme build can be downloaded [here](https://raw.githubusercontent.com/sanger-pathogens/trepogeno/main/data/scheme_updates/Trepogeno_scheme_build_2026-08-04.tar.gz).
 
+<br>
 
 ## Acknowledgements
 This project was heavily inspired by excellent work from the [GenoTyphi](https://github.com/typhoidgenomics/genotyphi) and [Mykrobe](https://github.com/Mykrobe-tools/mykrobe) teams and makes use of their code. The scheme was developed using data from the *T. pallidum* Nextstrain build.
 
-The project was developed by [Mat Beale](https://www.sanger.ac.uk/person/beale-mathew/) and the [PAM-Informatics](https://www.sanger.ac.uk/group/parasites-and-microbes-informatics/) team at the [Wellcome Sanger Institute](https://www.sanger.ac.uk/programme/parasites-and-microbes/) in collaboration with the *T. pallidum* Nextstrain project led by [Nicole Lieberman](https://dlmp.uw.edu/faculty/lieberman-nicole) at the [University of Washington](https://www.washington.edu/).
+`trepogeno` was developed by [Mat Beale](https://www.sanger.ac.uk/person/beale-mathew/) and the [PAM-Informatics](https://www.sanger.ac.uk/group/parasites-and-microbes-informatics/) team at the [Wellcome Sanger Institute](https://www.sanger.ac.uk/programme/parasites-and-microbes/) in collaboration with the *T. pallidum* Nextstrain project led by [Nicole Lieberman](https://dlmp.uw.edu/faculty/lieberman-nicole) at the [University of Washington](https://www.washington.edu/).
 
 This work was funded by the [Gates Foundation](https://www.gatesfoundation.org/) (INV-072205) and [Wellcome](https://wellcome.org/) (206545/Z/17/Z). 
