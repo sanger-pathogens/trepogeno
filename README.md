@@ -10,7 +10,7 @@
 ## Overview
 Most genomic data available for *Treponema pallidum* was generated directly from clinical specimens using hybrid capture enriched metagenomic sequencing methods. Sequencing depth is typically low and uneven, such that standard assembly methods often produce low quality assemblies. 
 
-Although molecular typing tools exist for *T. pallidum* (e.g. Multilocus sequence typing schemes; MLST), the clusters assigned are not always consistent with whole genome phylogeny. Moreover, typing methods such as MLST require recovery of complete locus sequences which is often not possible from *T. pallidum* assemblies (which may contain contig breaks or low quality base calls within target regions, even if the base present is the reference allele). A hierarchical SNP based typing scheme (based on the [GenoTyphi](https://github.com/typhoidgenomics/genotyphi) model) that requires only specific SNPs to be detected may therefore enable more consistent and robust typing from genomic data. 
+Although molecular typing tools exist for *T. pallidum* (e.g. multilocus sequence typing schemes; MLST), the clusters assigned are not always consistent with whole genome phylogeny. Moreover, typing methods such as MLST require recovery of complete locus sequences which is often not possible from *T. pallidum* assemblies (which may contain contig breaks or low quality base calls within target regions. A hierarchical SNP based typing scheme (based on the [GenoTyphi](https://github.com/typhoidgenomics/genotyphi) model) that requires only specific SNPs to be detected may therefore enable more consistent and robust typing from genomic data. 
 
 ### Hierarchical SNP types
 As part of the *T. pallidum* NextStrain project, we used an initial dataset of 2313 genomes to delineate clusters at three hierarchical levels using [fastBAPS](https://github.com/gtonkinhill/fastbaps).
@@ -19,7 +19,7 @@ As part of the *T. pallidum* NextStrain project, we used an initial dataset of 2
 
 - Level 2 corresponds to deep branches in the phylogeny, e.g. SS14 (TPA-1) and Nichols (TPA-2) lineages within TPA. Similarly deep branching lineages were observed within TPE. Numerical designations are applied to each group (largest group at each hierarchical level first).
 
-- Level 3 corresponds to sublineages closer to the tips. Since these were defined using BAPS, these are not uniformly diverse, and represent statistically robust genetic groups but not necessarily epidemiologically robust groups. Note that these clusters are generally more genetically diverse than those defined using SNP thresholds (e.g. [Beale 2021](https://www.nature.com/articles/s41564-021-01000-z)).
+- Level 3 corresponds to sublineages closer to the tips. Since these were defined using BAPS, these are not uniformly diverse, and represent statistically robust genetic groups but not necessarily epidemiologically meaningful ones. Note that these clusters are generally more genetically diverse than those defined using SNP thresholds (e.g. from [Beale et al, 2021](https://www.nature.com/articles/s41564-021-01000-z)).
 
 ![Figure_1_full_phylogeny](assets/p.full.pyjar.tree_plot_lineages_2026-08-13.svg)
 
@@ -38,7 +38,7 @@ As part of the *T. pallidum* NextStrain project, we used an initial dataset of 2
 After defining hierarchical lineages, we identified highly discriminatory SNPs delineating the phylogenetic branches of each lineage and sublineage. Genomes containing these SNPs can thus be classified into the hierarchical scheme.
 
 
-`trepogeno` wraps around and builds upon the well established tool [Mykrobe](https://github.com/Mykrobe-tools/mykrobe), and detects discriminatory SNPs to facilitate lineage calling of *Treponema pallidum* strains directly from sequencing reads. It can be installed as per the below instructions.
+`trepogeno` wraps around and builds upon the well established tool [Mykrobe](https://github.com/Mykrobe-tools/mykrobe), and detects discriminatory SNPs to facilitate lineage calling of *Treponema pallidum* strains directly from sequencing reads. It can be installed as per the instructions below.
 
 <br>
 
