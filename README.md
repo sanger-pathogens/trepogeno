@@ -66,7 +66,8 @@ docker run --rm -v $(pwd):/data -w /data quay.io/sangerpathogens/trepogeno:lates
 
 **If your system has Singularity/Apptainer** (to install see [Apptainer docs](https://apptainer.org/docs/admin/main/installation.html#)).
 
-Note: Whilst these are the same tool, different systems have named. If you are using a managed system check which name applies to your install. Replace 'singularity' in the example below with 'apptainer' as appropriate.
+Note: Whilst these are essentially the same tool, either `singularity` or `apptainer` may be available on your system. If you are using a managed system, check which name applies. Replace 'singularity' in the example below with 'apptainer' as appropriate.
+
 Pull the image (replace TAG with your desired version `vX.X.X`)
 ```
 singularity pull trepogeno_<TAG>.sif docker://quay.io/sangerpathogens:<TAG>
