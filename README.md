@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/1041482124.svg)](https://doi.org/10.5281/zenodo.21977783)
+
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/trepogeno-logo-dark.svg">
