@@ -77,7 +77,7 @@ singularity exec trepogeno_<TAG>.sif trepogeno --help
 singularity exec trepogeno_<TAG>.sif trepogeno <params>
 ```
 > [!TIP]
-> Similarly to docker you may wish to alias the command to avoid typing out `singularity exec trepogeno_<TAG>.sif` each time (replace TAG and add the path to your .sif file):
+> You may wish to alias the command to avoid typing out `singularity exec trepogeno_<TAG>.sif` each time (replace TAG and add the path to your `.sif` file):
 > `alias trepogeno='singularity exec /path/to/trepogeno_<TAG>.sif trepogeno'`
 
 ### From source code
