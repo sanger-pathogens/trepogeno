@@ -58,7 +58,7 @@ docker run --rm -v $(pwd):/data -w /data quay.io/sangerpathogens/trepogeno:lates
 > You must supply only relative paths to your current working directory (or wherever you mounted in the above) in your `trepogeno` commands, the tool will not have access to your entire filesystem.
 
 > [!TIP]
-> To speed this up for repeated run you may wish to alias this in your `.bashrc` `.bash_profile` or whatever file runs on start up on your setup. Following this you can simply run `trepogeno <commands>` each time. Add the following line:
+> To speed this up for repeated runs you may wish to alias this in your `.bashrc`, `.bash_profile`, or whatever file runs on start up on your setup. Following this, you can simply run `trepogeno <commands>` each time. Add the following line:
 >```
 >alias trepogeno='docker run --rm -v $(pwd):/data -w /data quay.io/sangerpathogens/trepogeno:latest trepogeno'
 >```
