@@ -48,11 +48,11 @@ After defining hierarchical lineages, we identified highly discriminatory SNPs d
 
 Pull the image (replace `latest` with a specific version tag, e.g. `vX.X.X`, for a reproducible install):
 ```
-docker pull quay.io/sanger-pathogens/trepogeno:latest
+docker pull quay.io/sangerpathogens/trepogeno:latest
 ```
 Run a `trepogeno` command, mounting your current working directory (or replace `$(pwd)` with the top-level directory where your data is stored):
 ```
-docker run --rm -v $(pwd):/data -w /data quay.io/sanger-pathogens/trepogeno:latest trepogeno <params>
+docker run --rm -v $(pwd):/data -w /data quay.io/sangerpathogens/trepogeno:latest trepogeno <params>
 ```
 > [!IMPORTANT]
 > You must supply only relative paths to your current working directory (or wherever you mounted in the above) in your `trepogeno` commands, the tool will not have access to your entire filesystem.
@@ -60,7 +60,7 @@ docker run --rm -v $(pwd):/data -w /data quay.io/sanger-pathogens/trepogeno:late
 > [!TIP]
 > To speed this up for repeated run you may wish to alias this in your `.bashrc` `.bash_profile` or whatever file runs on start up on your setup. Following this you can simply run `trepogeno <commands>` each time. Add the following line:
 >```
->alias trepogeno='docker run --rm -v $(pwd):/data -w /data quay.io/sanger-pathogens/trepogeno:latest trepogeno'
+>alias trepogeno='docker run --rm -v $(pwd):/data -w /data quay.io/sangerpathogens/trepogeno:latest trepogeno'
 >```
 
 
@@ -69,7 +69,7 @@ docker run --rm -v $(pwd):/data -w /data quay.io/sanger-pathogens/trepogeno:late
 Note: Whilst these are the same tool, different systems have named. If you are using a managed system check which name applies to your install. Replace 'singularity' in the example below with 'apptainer' as appropriate.
 Pull the image (replace TAG with your desired version `vX.X.X`)
 ```
-singularity pull trepogeno_<TAG>.sif docker://quay.io/sanger-pathogens:<TAG>
+singularity pull trepogeno_<TAG>.sif docker://quay.io/sangerpathogens:<TAG>
 ```
 Run directly with the pulled image:
 ```
