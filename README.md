@@ -88,7 +88,7 @@ docker run --rm -v $(pwd):/data -w /data quay.io/sangerpathogens/trepogeno:<TAG>
 >```
 
 
-**If your system has Singularity/Apptainer** (to install see [Apptainer docs](https://apptainer.org/docs/admin/main/installation.html#)).
+**If your system has Singularity/Apptainer** (to install see [Apptainer docs](https://apptainer.org/docs/admin/main/installation.html)).
 
 Note: Whilst these are essentially the same tool, either `singularity` or `apptainer` may be available on your system. If you are using a managed system, check which name applies. Replace 'singularity' in the example below with 'apptainer' as appropriate.
 
