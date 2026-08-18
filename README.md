@@ -50,12 +50,36 @@ Pull the image (replace `latest` with a specific version tag, e.g. `vX.X.X`, for
 ```
 docker pull quay.io/sangerpathogens/trepogeno:latest
 ```
-Run a `trepogeno` command, mounting your current working directory (or replace `$(pwd)` with the top-level directory where your data is stored):
+Set up a single top-level directory containing your inputs and move to that path. The docker container will not have access to your whole filesystem but rather just this directory and all it's subdirectories. For example:
+```
+$ tree trepogeno_work
+.
+├── typing_scheme.tsv
+├── reference.fa
+└── read_inputs
+    ├── reads
+    │   ├── sampleA_1.fa
+    │   ├── sampleA_2.fa
+    │   ├── sampleB_1.fa
+    │   └── sampleB_2.fa
+    └── manifest.csv
+$ cd trepogeno_work
+```
+Ensure you are in that directory and run a `trepogeno` command, mounting your current working directory (or replace `$(pwd)` with the top-level directory where your data is stored as above):
 ```
 docker run --rm -v $(pwd):/data -w /data quay.io/sangerpathogens/trepogeno:latest trepogeno <params>
 ```
 > [!IMPORTANT]
-> You must supply only relative paths to your current working directory (or wherever you mounted in the above) in your `trepogeno` commands, the tool will not have access to your entire filesystem.
+> You must supply only relative paths to your current working directory (or wherever you mounted in the above) in your `trepogeno` commands, the tool will not have access to your entire filesystem and therefore absolute paths will fail.
+>
+> Relative params for the above `trepogeno_work` example directory:
+> ```
+> --type_scheme typing_scheme.fa
+> --genomic_reference reference.fa
+> --seq_manifest read_input/manifest.csv
+> --probe_prefix output/custom_probe_name
+> ```
+> Outputs will also be created at paths relative to your working directory, so with the `probe_prefix` above the `output` directory would be created in your working directory and within that would appear the probe output `.json` and `.fa` files.
 
 > [!TIP]
 > To speed this up for repeated runs you may wish to alias this in your `.bashrc`, `.bash_profile`, or whatever file runs on start up on your setup. Following this, you can simply run `trepogeno <commands>` each time. Add the following line:
