@@ -44,13 +44,11 @@ After defining hierarchical lineages, we identified highly discriminatory SNPs d
 
 ## Installation
 ### Quickstart with Docker or Singularity (Recommended)
-**If your system has Docker** (to install see [Docker docs](https://docs.docker.com/desktop/))
+Docker or Singularity (also known as Apptainer) can be used to run `trepogeno` in a container. If you have either installed, this can simplify installation because the required software environment is already set up.
 
-Pull the image (in all following instructions replace `<TAG>` with your desired version `vX.X.X` for a reproducible install or `latest` for the most recent version):
-```
-docker pull quay.io/sangerpathogens/trepogeno:<TAG>
-```
-Set up a single top-level directory containing your inputs and move to that path. The docker container will not have access to your whole filesystem but rather just this directory and all it's subdirectories. For example:
+First create a single top-level directory containing your input files and change into that directory. The container is given access to this directory and its subdirectories, but not to the rest of your filesystem. Keeping all required input files within this directory therefore allows them to be accessed by `trepogeno`.
+
+For example:
 ```
 $ tree trepogeno_work
 .
@@ -65,7 +63,14 @@ $ tree trepogeno_work
     └── manifest.csv
 $ cd trepogeno_work
 ```
-Ensure you are in that directory and run a `trepogeno` command, mounting your current working directory (or replace `$(pwd)` with the top-level directory where your data is stored as above):
+
+**If your system has Docker** (to install see [Docker docs](https://docs.docker.com/desktop/))
+
+Pull the image (in all following instructions replace `<TAG>` with your desired version `vX.X.X` for a reproducible install or `latest` for the most recent version):
+```
+docker pull quay.io/sangerpathogens/trepogeno:<TAG>
+```
+Run a `trepogeno` command, mounting your current working directory (or replace `$(pwd)` with the top-level directory where your data is stored as described above, if this is not your current working directory):
 ```
 docker run --rm -v $(pwd):/data -w /data quay.io/sangerpathogens/trepogeno:<TAG> trepogeno <params>
 ```
@@ -88,7 +93,7 @@ docker run --rm -v $(pwd):/data -w /data quay.io/sangerpathogens/trepogeno:<TAG>
 >```
 
 
-**If your system has Singularity/Apptainer** (to install see [Apptainer docs](https://apptainer.org/docs/admin/main/installation.html)).
+**If your system has Singularity/Apptainer**
 
 Note: Whilst these are essentially the same tool, either `singularity` or `apptainer` may be available on your system. If you are using a managed system, check which name applies. Replace 'singularity' in the example below with 'apptainer' as appropriate.
 
