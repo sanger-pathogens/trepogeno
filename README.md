@@ -46,9 +46,9 @@ After defining hierarchical lineages, we identified highly discriminatory SNPs d
 ### Quickstart with Docker or Singularity (Recommended)
 **If your system has Docker** (to install see [Docker docs](https://docs.docker.com/desktop/))
 
-Pull the image (replace `latest` with a specific version tag, e.g. `vX.X.X`, for a reproducible install):
+Pull the image (in all following instructions replace `<TAG>` with your desired version `vX.X.X` for a reproducible install or `latest` for the most recent version):
 ```
-docker pull quay.io/sangerpathogens/trepogeno:latest
+docker pull quay.io/sangerpathogens/trepogeno:<TAG>
 ```
 Set up a single top-level directory containing your inputs and move to that path. The docker container will not have access to your whole filesystem but rather just this directory and all it's subdirectories. For example:
 ```
@@ -67,7 +67,7 @@ $ cd trepogeno_work
 ```
 Ensure you are in that directory and run a `trepogeno` command, mounting your current working directory (or replace `$(pwd)` with the top-level directory where your data is stored as above):
 ```
-docker run --rm -v $(pwd):/data -w /data quay.io/sangerpathogens/trepogeno:latest trepogeno <params>
+docker run --rm -v $(pwd):/data -w /data quay.io/sangerpathogens/trepogeno:<TAG> trepogeno <params>
 ```
 > [!IMPORTANT]
 > You must supply only relative paths to your current working directory (or wherever you mounted in the above) in your `trepogeno` commands, the tool will not have access to your entire filesystem and therefore absolute paths will fail.
@@ -82,9 +82,9 @@ docker run --rm -v $(pwd):/data -w /data quay.io/sangerpathogens/trepogeno:lates
 > Outputs will also be created at paths relative to your working directory, so with the `probe_prefix` above the `output` directory would be created in your working directory and within that would appear the probe output `.json` and `.fa` files.
 
 > [!TIP]
-> To speed this up for repeated runs you may wish to alias this in your `.bashrc`, `.bash_profile`, or whatever file runs on start up on your setup. Following this, you can simply run `trepogeno <commands>` each time. Add the following line:
+> To speed this up for repeated runs you may wish to alias this in your `.bashrc`, `.bash_profile`, or whatever file runs on start up on your setup. Following this, you can simply run `trepogeno <params>` each time. Add the following line:
 >```
->alias trepogeno='docker run --rm -v $(pwd):/data -w /data quay.io/sangerpathogens/trepogeno:latest trepogeno'
+>alias trepogeno='docker run --rm -v $(pwd):/data -w /data quay.io/sangerpathogens/trepogeno:<TAG> trepogeno'
 >```
 
 
@@ -92,7 +92,7 @@ docker run --rm -v $(pwd):/data -w /data quay.io/sangerpathogens/trepogeno:lates
 
 Note: Whilst these are essentially the same tool, either `singularity` or `apptainer` may be available on your system. If you are using a managed system, check which name applies. Replace 'singularity' in the example below with 'apptainer' as appropriate.
 
-Pull the image (replace TAG with your desired version `vX.X.X`)
+Pull the image (in all following instructions replace `<TAG>` with your desired version `vX.X.X` for a reproducible install or `latest` for the most recent version):
 ```
 singularity pull trepogeno_<TAG>.sif docker://quay.io/sangerpathogens:<TAG>
 ```
