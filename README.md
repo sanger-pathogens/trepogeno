@@ -17,7 +17,7 @@ Although molecular typing tools exist for _T. pallidum_ (e.g. multilocus sequenc
 
 ### Hierarchical SNP types
 
-As part of the _T. pallidum_ NextStrain project, we used an initial dataset of 2313 genomes to delineate clusters at three hierarchical levels using [fastBAPS](https://github.com/gtonkinhill/fastbaps).
+As part of the _T. pallidum_ [Nextstrain project](https://tpallidum.org), we used an initial dataset of 2313 genomes to delineate clusters at three hierarchical levels using [fastBAPS](https://github.com/gtonkinhill/fastbaps).
 
 - Level 1 corresponds to the _T. pallidum_ subspecies _pallidum_ (TPA), _pertenue_ (TPE), and _endemicum_ (TEN). An additional group of genomes corresponding to outliers recovered from ancient DNA was left unclassified (Other).
 
@@ -359,6 +359,6 @@ We anticipate that as new genomes are published, new sublineages may need to be 
 
 This project was heavily inspired by excellent work from the [GenoTyphi](https://github.com/typhoidgenomics/genotyphi) and [Mykrobe](https://github.com/Mykrobe-tools/mykrobe) teams and makes use of their code. The scheme was developed using data from the _T. pallidum_ Nextstrain build.
 
-`trepogeno` was developed by [Mat Beale](https://www.sanger.ac.uk/person/beale-mathew/) and the [PAM-Informatics](https://www.sanger.ac.uk/group/parasites-and-microbes-informatics/) team at the [Wellcome Sanger Institute](https://www.sanger.ac.uk/programme/parasites-and-microbes/) in collaboration with the _T. pallidum_ Nextstrain project led by [Nicole Lieberman](https://dlmp.uw.edu/faculty/lieberman-nicole) at the [University of Washington](https://www.washington.edu/). Special thanks to Jason Beard who supported the initial design and coding of the project.
+`trepogeno` was developed by [Mat Beale](https://www.sanger.ac.uk/person/beale-mathew/) and the [PAM-Informatics](https://www.sanger.ac.uk/group/parasites-and-microbes-informatics/) team at the [Wellcome Sanger Institute](https://www.sanger.ac.uk/programme/parasites-and-microbes/) in collaboration with the _T. pallidum_ [Nextstrain project](https://tpallidum.org) led by [Nicole Lieberman](https://dlmp.uw.edu/faculty/lieberman-nicole) at the [University of Washington](https://www.washington.edu/). Special thanks to Jason Beard who supported the initial design and coding of the project.
 
-This work was funded by the [Gates Foundation](https://www.gatesfoundation.org/) (INV-072205) and [Wellcome](https://wellcome.org/) (206545/Z/17/Z).
+This work was funded by the [Gates Foundation](https://www.gatesfoundation.org/) (`INV-072205`) and [Wellcome](https://wellcome.org/) (206545/Z/17/Z).
